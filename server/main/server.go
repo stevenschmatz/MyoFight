@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"time"
 )
 
 const (
@@ -16,11 +17,7 @@ const (
 func main() {
 	listener, err := net.Listen("tcp", PORT)
 	checkErr(err)
-
-	fmt.Println("Server started.")
-	fmt.Println("---------------")
-
-	fmt.Println(listener.Addr().String())
+	fmt.Println("Server started.\n---------------")
 
 	for {
 		conn, err := listener.Accept()
@@ -33,19 +30,15 @@ func main() {
 }
 
 func handleConn(conn net.Conn) {
-	a := protocol.Data{
-		protocol.MyoData{
-			Accelerometer: []string{"1", "2"},
-			Gyroscope:     []string{"3"},
-			Magnemometer:  []string{"4"},
-			Gesture:       "fist",
-		},
+	for {
+
+		jsonBytes, err := json.Marshal(protocol.TestJSON)
+		checkErr(err)
+
+		conn.Write(jsonBytes)
+
+		time.Sleep(1000 * time.Millisecond)
 	}
-
-	jsonBytes, err := json.Marshal(a)
-	checkErr(err)
-
-	conn.Write(jsonBytes)
 }
 
 func checkErr(err error) {
