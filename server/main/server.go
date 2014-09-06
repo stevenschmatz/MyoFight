@@ -1,5 +1,9 @@
 package main
 
+// package main implements the server-side code that organizes input
+// data from the Myo and Kinect devices, and sends it to multiple
+// iOS clients.
+
 import (
 	"encoding/json"
 	"fmt"
@@ -7,7 +11,7 @@ import (
 	"log"
 	"net"
 	"os"
-	"time"
+	// "time"
 )
 
 const (
@@ -35,8 +39,9 @@ func handleConn(conn net.Conn) {
 		checkErr(err)
 
 		conn.Write(jsonBytes)
+		conn.Write([]byte("\n"))
 
-		time.Sleep(1000 * time.Millisecond)
+		// time.Sleep(1000 * time.Millisecond)
 	}
 }
 
