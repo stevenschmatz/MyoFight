@@ -16,7 +16,8 @@ import (
 )
 
 const (
-	PORT = ":3458"
+	SERVER_PORT = ":3458"
+	RELAY_IP    = "127.0.0.1:2417"
 )
 
 var (
@@ -29,14 +30,7 @@ func main() {
 	go continuouslyCheckForInput()
 	go receiveDataFromRelay()
 
-	go func() {
-		for {
-			fmt.Println(string(MyoTwoJSON))
-			time.Sleep(1000 * time.Millisecond)
-		}
-	}()
-
-	listener, err := net.Listen("tcp", PORT)
+	listener, err := net.Listen("tcp", SERVER_PORT)
 	checkErr(err)
 	fmt.Println("Server started.\n---------------")
 
@@ -81,7 +75,7 @@ func continuouslyCheckForInput() {
 }
 
 func receiveDataFromRelay() {
-	conn, _ := net.Dial("tcp", "127.0.0.1:2417")
+	conn, _ := net.Dial("tcp", RELAY_IP)
 
 	for {
 		buffer := make([]byte, 1024)
