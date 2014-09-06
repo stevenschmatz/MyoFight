@@ -1,0 +1,9 @@
+C:\myo-game\game-server-application\game-server-application\bin\Debug\game-server-application.exe.config
+C:\myo-game\game-server-application\game-server-application\bin\Debug\game-server-application.exe
+C:\myo-game\game-server-application\game-server-application\bin\Debug\game-server-application.pdb
+C:\myo-game\game-server-application\game-server-application\obj\Debug\game-server-application.csprojResolveAssemblyReference.cache
+C:\myo-game\game-server-application\game-server-application\obj\Debug\game_server_application.MyoFight.resources
+C:\myo-game\game-server-application\game-server-application\obj\Debug\game_server_application.Properties.Resources.resources
+C:\myo-game\game-server-application\game-server-application\obj\Debug\game-server-application.csproj.GenerateResource.Cache
+C:\myo-game\game-server-application\game-server-application\obj\Debug\game-server-application.exe
+C:\myo-game\game-server-application\game-server-application\obj\Debug\game-server-application.pdb
