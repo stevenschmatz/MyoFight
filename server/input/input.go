@@ -1,9 +1,28 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"encoding/json"
+	"fmt"
+	"github.com/stevenschmatz/myo-game/server/protocol"
+	"os"
+)
+
+type Data struct {
+	Hello string
+}
 
 func main() {
-	var myInt int
-	fmt.Scanf("%d", &myInt)
-	fmt.Println("Your integer is", myInt)
+	bio := bufio.NewReader(os.Stdin)
+	for {
+		data := getLineOfJSON(bio)
+		fmt.Println(data)
+	}
+}
+
+func getLineOfJSON(bio *bufio.Reader) protocol.Data {
+	line, _, _ := bio.ReadLine()
+	data := protocol.Data{}
+	json.Unmarshal(line, &data)
+	return data
 }

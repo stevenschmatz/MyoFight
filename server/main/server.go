@@ -26,12 +26,6 @@ func main() {
 
 	fmt.Println(string(jsonBytes))
 
-	for i := 0; i < 300; i++ {
-		sinValue := getSampleSinValue()
-		fmt.Println(sinValue)
-		time.Sleep(10 * time.Millisecond)
-	}
-
 	listener, err := net.Listen("tcp", PORT)
 	checkErr(err)
 	fmt.Println("Server started.\n---------------")
