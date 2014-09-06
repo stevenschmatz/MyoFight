@@ -49,9 +49,9 @@ public:
 			1.0f - 2.0f * (quat.y() * quat.y() + quat.z() * quat.z()));
 
 		// Convert the floating point angles in radians to a scale from 0 to 20.
-		roll_w = static_cast<int>((roll + (float) M_PI) / (M_PI * 2.0f) * 18);
-		pitch_w = static_cast<int>((pitch + (float) M_PI / 2.0f) / M_PI * 18);
-		yaw_w = static_cast<int>((yaw + (float) M_PI) / (M_PI * 2.0f) * 18);
+		roll_w = (roll + (float) M_PI) / (M_PI * 2.0f) * 18;
+		pitch_w = (pitch + (float) M_PI / 2.0f) / M_PI * 18;
+		yaw_w = (yaw + (float) M_PI) / (M_PI * 2.0f) * 18;
 	}
 
 	// onPose() is called whenever the Myo detects that the person wearing it has changed their pose, for example,
@@ -115,12 +115,23 @@ public:
 		std::cout << std::flush;
 	}
 
+	void jsonOutput() {
+		cout << "\r";
+		cout << "{" << "\"positions\": {";
+		cout << "\"roll\": \"" << roll_w << "\", ";
+		cout << "\"pitch\": \"" << pitch_w << "\", ";
+		cout << "\"yaw\": \"" << yaw_w << "\"}, ";
+		cout << "\"pose\": \"" << currentPose.toString() << "\",}";
+
+		cout << flush;
+	}
+
 	// These values are set by onArmRecognized() and onArmLost() above.
 	bool onArm;
 	myo::Arm whichArm;
 
 	// These values are set by onOrientationData() and onPose() above.
-	int roll_w, pitch_w, yaw_w;
+	float roll_w, pitch_w, yaw_w;
 	myo::Pose currentPose;
 };
 
@@ -145,7 +156,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	while (1) {
 		hub.run(1000 / 20);
-		listener.print();
+		//listener.print();
+		listener.jsonOutput();
+		//break;
 	}
 
 	system("pause");
