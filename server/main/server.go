@@ -5,6 +5,7 @@ package main
 // iOS clients.
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"github.com/stevenschmatz/myo-game/server/protocol"
@@ -19,12 +20,13 @@ const (
 	PORT = ":3458"
 )
 
+var (
+	DataToSend = protocol.MyoData{}
+)
+
 func main() {
 
-	jsonBytes, err := json.Marshal(protocol.TestJSON)
-	checkErr(err)
-
-	fmt.Println(string(jsonBytes))
+	go continuouslyCheckForInput()
 
 	listener, err := net.Listen("tcp", PORT)
 	checkErr(err)
@@ -42,22 +44,34 @@ func main() {
 
 func handleConn(conn net.Conn) {
 	for {
-		a := protocol.Test{
-			Random: getSampleSinValue(),
-		}
-		jsonBytes, err := json.Marshal(a)
+		jsonBytes, err := json.Marshal(DataToSend)
 		checkErr(err)
 
 		conn.Write(jsonBytes)
 		conn.Write([]byte("\n"))
 
-		time.Sleep(10 * time.Millisecond)
+		time.Sleep(20 * time.Millisecond)
 	}
 }
 
 func getSampleSinValue() float64 {
 	// Computes a periodic function of time with period of 1 second
 	return (math.Sin(((float64(time.Now().UnixNano() / int64(time.Millisecond))) / (100.0 * math.Pi))) + 1.0) / 2.0
+}
+
+func continuouslyCheckForInput() {
+	bio := bufio.NewReader(os.Stdin)
+	for {
+		data := getLineOfJSON(bio)
+		DataToSend = data
+	}
+}
+
+func getLineOfJSON(bio *bufio.Reader) protocol.MyoData {
+	line, _, _ := bio.ReadLine()
+	data := protocol.MyoData{}
+	json.Unmarshal(line, &data)
+	return data
 }
 
 func checkErr(err error) {
