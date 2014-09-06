@@ -117,11 +117,11 @@ public:
 
 	void jsonOutput() {
 		cout << "\r";
-		cout << "{" << "\"positions\": {";
-		cout << "\"roll\": \"" << roll_w << "\", ";
-		cout << "\"pitch\": \"" << pitch_w << "\", ";
-		cout << "\"yaw\": \"" << yaw_w << "\"}, ";
-		cout << "\"pose\": \"" << currentPose.toString() << "\",}";
+		cout << "{" << "\"Positions\": {";
+		cout << "\"Roll\": \"" << roll_w << "\", ";
+		cout << "\"Pitch\": \"" << pitch_w << "\", ";
+		cout << "\"Yaw\": \"" << yaw_w << "\"}, ";
+		cout << "\"Pose\": \"" << currentPose.toString() << "\",}";
 
 		cout << flush;
 	}
