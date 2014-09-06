@@ -21,11 +21,20 @@ const (
 
 var (
 	DataToSend = protocol.Data{}
+	MyoTwoJSON []byte
 )
 
 func main() {
 
 	go continuouslyCheckForInput()
+	go receiveDataFromRelay()
+
+	go func() {
+		for {
+			fmt.Println(string(MyoTwoJSON))
+			time.Sleep(1000 * time.Millisecond)
+		}
+	}()
 
 	listener, err := net.Listen("tcp", PORT)
 	checkErr(err)
@@ -68,6 +77,20 @@ func continuouslyCheckForInput() {
 			},
 		}
 		DataToSend = data
+	}
+}
+
+func receiveDataFromRelay() {
+	conn, _ := net.Dial("tcp", "127.0.0.1:2417")
+
+	for {
+		buffer := make([]byte, 1024)
+		bytesRead, error := conn.Read(buffer)
+		if error != nil {
+			log.Println("Client connection error: ", error)
+		}
+
+		MyoTwoJSON = buffer[0:bytesRead]
 	}
 }
 
