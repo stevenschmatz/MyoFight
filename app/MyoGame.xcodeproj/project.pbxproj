@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4671EDDA19BB54450079595E /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671EDD919BB54450079595E /* Socket.swift */; };
 		468C3FF819BABAC7007656FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C3FF719BABAC7007656FF /* AppDelegate.swift */; };
-		468C3FFA19BABAC7007656FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C3FF919BABAC7007656FF /* ViewController.swift */; };
+		468C3FFA19BABAC7007656FF /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C3FF919BABAC7007656FF /* GameViewController.swift */; };
 		468C3FFD19BABAC7007656FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 468C3FFB19BABAC7007656FF /* Main.storyboard */; };
 		468C3FFF19BABAC7007656FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 468C3FFE19BABAC7007656FF /* Images.xcassets */; };
 		468C400B19BABAC8007656FF /* MyoGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C400A19BABAC8007656FF /* MyoGameTests.swift */; };
@@ -26,10 +27,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4671EDD919BB54450079595E /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		468C3FF219BABAC7007656FF /* MyoGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyoGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		468C3FF619BABAC7007656FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		468C3FF719BABAC7007656FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		468C3FF919BABAC7007656FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		468C3FF919BABAC7007656FF /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		468C3FFC19BABAC7007656FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		468C3FFE19BABAC7007656FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		468C400419BABAC8007656FF /* MyoGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyoGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,7 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				468C3FF719BABAC7007656FF /* AppDelegate.swift */,
-				468C3FF919BABAC7007656FF /* ViewController.swift */,
+				4671EDD919BB54450079595E /* Socket.swift */,
+				468C3FF919BABAC7007656FF /* GameViewController.swift */,
 				468C401819BABC5C007656FF /* Sockets */,
 				468C3FFB19BABAC7007656FF /* Main.storyboard */,
 				468C3FFE19BABAC7007656FF /* Images.xcassets */,
@@ -223,8 +226,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4671EDDA19BB54450079595E /* Socket.swift in Sources */,
 				468C401719BABC4E007656FF /* GCDAsyncSocket.m in Sources */,
-				468C3FFA19BABAC7007656FF /* ViewController.swift in Sources */,
+				468C3FFA19BABAC7007656FF /* GameViewController.swift in Sources */,
 				468C3FF819BABAC7007656FF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -418,6 +422,7 @@
 				468C401019BABAC8007656FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		468C401119BABAC8007656FF /* Build configuration list for PBXNativeTarget "MyoGameTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +431,7 @@
 				468C401319BABAC8007656FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

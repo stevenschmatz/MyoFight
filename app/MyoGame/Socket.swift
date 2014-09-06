@@ -1,17 +1,14 @@
 //
-//  ViewController.swift
+//  Socket.swift
 //  MyoGame
 //
-//  Created by Russell Ladd on 9/5/14.
+//  Created by Russell Ladd on 9/6/14.
 //  Copyright (c) 2014 GRL5. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-let port: UInt16 = 3458
-let host: String = "192.168.0.198"
-
-class ViewController: UIViewController, GCDAsyncSocketDelegate {
+class Socket: NSObject, GCDAsyncSocketDelegate {
     
     // MARK: Socket
     
@@ -20,9 +17,9 @@ class ViewController: UIViewController, GCDAsyncSocketDelegate {
     
     // MARK: Initialization
     
-    required init(coder aDecoder: NSCoder) {
+    init(host: String, port: UInt16) {
         
-        super.init(coder: aDecoder)
+        super.init()
         
         socket.setDelegate(self, delegateQueue: dispatch_get_main_queue())
         
@@ -60,11 +57,6 @@ class ViewController: UIViewController, GCDAsyncSocketDelegate {
         }
         
         socket.readDataToData(separatorData, withTimeout: -1.0, tag: 0)
-    }
-    
-    func socketDidCloseReadStream(sock: GCDAsyncSocket!) {
-        
-        println("Did close read stream")
     }
     
     func socketDidDisconnect(sock: GCDAsyncSocket!, withError err: NSError!) {
