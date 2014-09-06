@@ -8,9 +8,18 @@
 
 import Foundation
 
+struct Player {
+    
+    let position: Double
+    let health: Double
+    let action: String
+}
+
 struct Packet {
     
     let position: Double
+    
+    //let players: [Player]
 }
 
 protocol SocketDelegate {
@@ -31,7 +40,7 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
     func connect() {
         
         var possibleConnectError: NSError?
-        socket.connectToHost(host, onPort: port, withTimeout: -1, error: &possibleConnectError)
+        socket.connectToHost(host, onPort: port, withTimeout: 5.0, error: &possibleConnectError)
         
         if let error = possibleConnectError {
             println(error)
@@ -76,11 +85,11 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
             
             println("JSON: \(dictionary)")
             
-            let position = (dictionary["Random"] as NSNumber).doubleValue
+            //let position = (dictionary["Random"] as NSNumber).doubleValue
             
-            let packet = Packet(position: position)
+            //let packet = Packet(position: position)
             
-            delegate?.socket(self, didReceivePacket: packet)
+            //delegate?.socket(self, didReceivePacket: packet)
             
         } else {
             

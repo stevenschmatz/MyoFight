@@ -10,17 +10,19 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    // MARK: Texture
+    
+    let texture = Texture()
+    
     // MARK: Sprites
     
-    var square: SKNode!
+    var ken: SKNode!
     
     func updateSquarePosition(position: CGFloat) {
         
         let x = (position * 2.0 - 1.0) * 100.0
         
-        square.runAction(SKAction.moveToX(x, duration: 0.1))
-        
-        //square.position = CGPointMake(x, 0.0)
+        ken.runAction(SKAction.moveToX(x, duration: 0.1))
     }
     
     // MARK: Initialization
@@ -34,14 +36,11 @@ class GameScene: SKScene {
         
         backgroundColor = SKColor.whiteColor()
         
-        square = SKSpriteNode(color: SKColor.redColor(), size: CGSizeMake(100.0, 100.0))
-        self.addChild(square)
+        ken = SKSpriteNode(texture: texture.kenTexture)
+        self.addChild(ken)
     }
     
     required init(coder aDecoder: NSCoder) {
-        
         super.init(coder: aDecoder)
-        
-        println("init with coder")
     }
 }
