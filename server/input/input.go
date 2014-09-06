@@ -20,9 +20,9 @@ func main() {
 	}
 }
 
-func getLineOfJSON(bio *bufio.Reader) protocol.Data {
+func getLineOfJSON(bio *bufio.Reader) protocol.MyoData {
 	line, _, _ := bio.ReadLine()
-	data := protocol.Data{}
+	data := protocol.MyoData{}
 	json.Unmarshal(line, &data)
 	return data
 }
