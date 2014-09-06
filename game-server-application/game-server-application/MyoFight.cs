@@ -11,26 +11,49 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
 
+using KinectManagement;
+using Microsoft.Kinect;
+using System.IO;
+
 namespace game_server_application
 {
     public partial class MyoFight : Form
     {
+        Thread execThread;
+        KinectSensor kinect;
+
         public MyoFight()
         {
             InitializeComponent();
-        }
 
-        Thread execThread;
+            foreach (var potentialSensor in KinectSensor.KinectSensors)
+            {
+                if (potentialSensor.Status == KinectStatus.Connected)
+                {
+                    this.kinect = potentialSensor;
+                    break;
+                }
+            }
+
+            if (this.kinect == null) Application.Exit();
+
+            Debug.WriteLine(this.kinect.Status.ToString());
+
+            this.kinect.SkeletonStream.Enable();
+            this.kinect.SkeletonFrameReady += this.SensorSkeletonFrameReady;
+
+            this.kinect.Start();
+
+            execThread = new Thread(asyncGameProcessTask);
+            execThread.Start();
+        }
 
         private void MyoFight_Load(object sender, EventArgs e)
         {
             
-
-            execThread = new Thread(asyncGameProcessTask);
-            execThread.Start();
-
-            
         }
+
+        String kinectData = "";
 
         private void asyncGameProcessTask()
         {
@@ -55,9 +78,11 @@ namespace game_server_application
 
                 if (gameServer.HasExited || gameConnectProcess.HasExited) break;
 
-                gameServer.StandardInput.WriteLine(gameConnectProcess.StandardOutput.ReadLine());
-                //Debug.WriteLine(gameServer.StandardOutput.ReadLine());
-                Debug.WriteLine(gameConnectProcess.StandardOutput.ReadLine());
+                string myo1 = "{\"Player1\":" + gameConnectProcess.StandardOutput.ReadLine() + kinectData + "}";
+                kinectData = "";
+
+                gameServer.StandardInput.WriteLine(myo1);
+                Debug.WriteLine(myo1);
             }
 
             if (!gameConnectProcess.HasExited)
@@ -72,6 +97,52 @@ namespace game_server_application
                 gameServer.Kill();
                 gameServer.WaitForExit();
             }
+        }
+
+        double x1, x2;
+
+        private void SensorSkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
+        {
+            Skeleton[] skeletons = new Skeleton[0];
+
+            using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
+            {
+                if (skeletonFrame != null)
+                {
+                    skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
+                    skeletonFrame.CopySkeletonDataTo(skeletons);
+                }
+            }
+
+            int tempI = 0;
+            double[] tempX = new double[2];
+
+            for (int i = 0; i < skeletons.Length; i++)
+            {
+                double x = skeletons[i].Joints[JointType.Spine].Position.X;
+
+                if (x != 0)
+                {
+                    tempX[tempI] = x;
+                    tempI++;
+                    if (tempI >= 2) break;
+                }
+            }
+
+            x1 = tempX[0];
+            x2 = tempX[1];
+
+            if (x1 > x2)
+            {
+                double temp = x1;
+                x1 = x2;
+                x2 = temp;
+            }
+
+            label1.Text = x1.ToString();
+            label2.Text = x2.ToString();
+
+            kinectData = ", {\"Kinect\":{\"Player1\":" + x1.ToString() + ", \"Player2\":" + x2.ToString() + "}}";
         }
 
         volatile bool shouldStop = false;
