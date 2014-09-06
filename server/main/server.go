@@ -17,20 +17,6 @@ func main() {
 	listener, err := net.Listen("tcp", PORT)
 	checkErr(err)
 
-	a := protocol.Data{
-		protocol.MyoData{
-			Accelerometer: []string{"1", "2"},
-			Gyroscope:     []string{"3"},
-			Magnemometer:  []string{"4"},
-			Gesture:       "fist",
-		},
-	}
-
-	jsonBytes, err := json.Marshal(a)
-	checkErr(err)
-
-	fmt.Println(string(jsonBytes))
-
 	fmt.Println("Server started.")
 	fmt.Println("---------------")
 
@@ -47,7 +33,15 @@ func main() {
 }
 
 func handleConn(conn net.Conn) {
-	a := protocol.TestData{Hello: "World"}
+	a := protocol.Data{
+		protocol.MyoData{
+			Accelerometer: []string{"1", "2"},
+			Gyroscope:     []string{"3"},
+			Magnemometer:  []string{"4"},
+			Gesture:       "fist",
+		},
+	}
+
 	jsonBytes, err := json.Marshal(a)
 	checkErr(err)
 
