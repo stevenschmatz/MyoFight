@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SpriteKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, SocketDelegate {
     
     // MARK: Socket
     
@@ -20,19 +21,30 @@ class GameViewController: UIViewController {
         
         super.init(coder: aDecoder)
         
-        /*
-        let socket = GCDAsyncSocket()
-        
-        socket.setDelegate(self, delegateQueue: dispatch_get_main_queue())
-        
-        var possibleConnectError: NSError?
-        socket.connectToHost("192.168.0.198", onPort: 3458, withTimeout: -1, error: &possibleConnectError)
-        
-        if let error = possibleConnectError {
-            println(error)
-        }
-        */
-        
-        //socket.readDataToData(separatorData, withTimeout: -1.0, tag: 0)
+        socket.delegate = self
     }
+    
+    // MARK: Socket delegate
+    
+    func socket(socket: Socket, didReceivePacket packet: Packet) {
+        
+        scene.updateSquarePosition(CGFloat(packet.position))
+    }
+    
+    // MARK: View
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        spriteView.presentScene(scene)
+    }
+    
+    // MARK: SKView
+    
+    var spriteView: SKView { return view as SKView }
+    
+    // MARK: Scene
+    
+    let scene = GameScene(size: CGSizeMake(480.0, 320.0))
 }
