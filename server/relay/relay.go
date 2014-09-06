@@ -4,7 +4,11 @@ package main
 
 import (
 	"bufio"
+	"fmt"
+	"log"
 	"net"
+	"os"
+	"time"
 )
 
 const (
@@ -45,5 +49,12 @@ func continuouslyCheckForInput() {
 	for {
 		line, _, _ := bio.ReadLine()
 		DataToSend = line
+	}
+}
+
+func checkErr(err error) {
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
 	}
 }
