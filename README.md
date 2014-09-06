@@ -2,6 +2,8 @@ MyoFight
 =======
 A virtual reality Street Fighter game.
 
+![MyoFight logo](assets/Logo.png)
+
 Goals
 -------
 * Fight with gestures and a combat system. Gestures for offense include punching forward, blocking with arm up, counter with a side gesture, and, of course, ability to charge and shoot a Hadoken fireball.
