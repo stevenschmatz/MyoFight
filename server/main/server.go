@@ -31,7 +31,6 @@ func main() {
 
 func handleConn(conn net.Conn) {
 	for {
-
 		jsonBytes, err := json.Marshal(protocol.TestJSON)
 		checkErr(err)
 
