@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4671EDDA19BB54450079595E /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671EDD919BB54450079595E /* Socket.swift */; };
+		4671EDDC19BB5CE90079595E /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4671EDDB19BB5CE90079595E /* SpriteKit.framework */; };
+		4671EDDF19BB5DA00079595E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671EDDE19BB5DA00079595E /* GameScene.swift */; };
 		468C3FF819BABAC7007656FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C3FF719BABAC7007656FF /* AppDelegate.swift */; };
 		468C3FFA19BABAC7007656FF /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C3FF919BABAC7007656FF /* GameViewController.swift */; };
 		468C3FFD19BABAC7007656FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 468C3FFB19BABAC7007656FF /* Main.storyboard */; };
@@ -28,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		4671EDD919BB54450079595E /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
+		4671EDDB19BB5CE90079595E /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		4671EDDE19BB5DA00079595E /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		468C3FF219BABAC7007656FF /* MyoGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyoGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		468C3FF619BABAC7007656FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		468C3FF719BABAC7007656FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4671EDDC19BB5CE90079595E /* SpriteKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +65,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4671EDDD19BB5CFE0079595E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4671EDDB19BB5CE90079595E /* SpriteKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		468C3FE919BABAC7007656FF = {
 			isa = PBXGroup;
 			children = (
 				468C3FF419BABAC7007656FF /* MyoGame */,
 				468C400719BABAC8007656FF /* MyoGameTests */,
 				468C3FF319BABAC7007656FF /* Products */,
+				4671EDDD19BB5CFE0079595E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,6 +98,7 @@
 				468C3FF719BABAC7007656FF /* AppDelegate.swift */,
 				4671EDD919BB54450079595E /* Socket.swift */,
 				468C3FF919BABAC7007656FF /* GameViewController.swift */,
+				4671EDDE19BB5DA00079595E /* GameScene.swift */,
 				468C401819BABC5C007656FF /* Sockets */,
 				468C3FFB19BABAC7007656FF /* Main.storyboard */,
 				468C3FFE19BABAC7007656FF /* Images.xcassets */,
@@ -176,6 +191,7 @@
 				TargetAttributes = {
 					468C3FF119BABAC7007656FF = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 8ZTTS3HC8X;
 					};
 					468C400319BABAC8007656FF = {
 						CreatedOnToolsVersion = 6.0;
@@ -226,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4671EDDF19BB5DA00079595E /* GameScene.swift in Sources */,
 				4671EDDA19BB54450079595E /* Socket.swift in Sources */,
 				468C401719BABC4E007656FF /* GCDAsyncSocket.m in Sources */,
 				468C3FFA19BABAC7007656FF /* GameViewController.swift in Sources */,

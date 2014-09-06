@@ -8,20 +8,27 @@
 
 import Foundation
 
+struct Packet {
+    
+    let position: Double
+}
+
+protocol SocketDelegate {
+    
+    func socket(socket: Socket, didReceivePacket packet: Packet)
+}
+
 class Socket: NSObject, GCDAsyncSocketDelegate {
     
     // MARK: Socket
     
+    let host: String
+    let port: UInt16
+    
     let socket = GCDAsyncSocket()
     let separatorData = "\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
     
-    // MARK: Initialization
-    
-    init(host: String, port: UInt16) {
-        
-        super.init()
-        
-        socket.setDelegate(self, delegateQueue: dispatch_get_main_queue())
+    func connect() {
         
         var possibleConnectError: NSError?
         socket.connectToHost(host, onPort: port, withTimeout: -1, error: &possibleConnectError)
@@ -31,6 +38,24 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
         }
         
         socket.readDataToData(separatorData, withTimeout: -1.0, tag: 0)
+    }
+    
+    // MARK: Delegate
+    
+    var delegate: SocketDelegate?
+    
+    // MARK: Initialization
+    
+    init(host: String, port: UInt16) {
+        
+        self.host = host
+        self.port = port
+        
+        super.init()
+        
+        socket.setDelegate(self, delegateQueue: dispatch_get_main_queue())
+        
+        connect()
     }
     
     // MARK: Socket delegate
@@ -51,6 +76,12 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
             
             println("JSON: \(dictionary)")
             
+            let position = (dictionary["Random"] as NSNumber).doubleValue
+            
+            let packet = Packet(position: position)
+            
+            delegate?.socket(self, didReceivePacket: packet)
+            
         } else {
             
             println("Invalid JSON")
@@ -62,5 +93,7 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
     func socketDidDisconnect(sock: GCDAsyncSocket!, withError err: NSError!) {
         
         println("Disconnected")
+        
+        connect()
     }
 }
