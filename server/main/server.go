@@ -50,7 +50,6 @@ func handleConn(conn net.Conn) {
 		checkErr(err)
 
 		conn.Write(jsonBytes)
-		fmt.Println(string(jsonBytes))
 		conn.Write([]byte("\n"))
 
 		time.Sleep(20 * time.Millisecond)
