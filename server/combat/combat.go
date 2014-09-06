@@ -17,6 +17,11 @@ type (
 	}
 )
 
+const (
+	CLOSE_RANGE  = 0.10 // 10 percent of Kinect frame
+	KINECT_RANGE = 2.0
+)
+
 var (
 	playerOne = Player{}
 	playerTwo = Player{}
@@ -40,6 +45,25 @@ func InitPlayersWithLocation(locationOne, locationTwo float64) {
 		Health:   1.0,
 		Stamina:  1.0,
 		Action:   "rest",
+	}
+}
+
+func UpdatePositions(rawKinectData protocol.KinectData) {
+	pos1 := TruncatePosition(rawKinectData.PlayerOnePosition)
+	pos2 := TruncatePosition(rawKinectData.PlayerTwoPosition)
+
+	players[0].Position = pos1
+	players[1].Position = pos2
+}
+
+func TruncatePosition(position float64) float64 {
+	position /= (KINECT_RANGE / 2) // Standardizing
+	if position > 1 {
+		return 1
+	} else if position < -1 {
+		return -1
+	} else {
+		return position
 	}
 }
 

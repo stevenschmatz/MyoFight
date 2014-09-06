@@ -16,6 +16,11 @@ type (
 		Pose      string
 	}
 
+	KinectData struct {
+		PlayerOnePosition float64
+		PlayerTwoPosition float64
+	}
+
 	MyoPlayer struct {
 		Health  float64
 		Stamina float64
