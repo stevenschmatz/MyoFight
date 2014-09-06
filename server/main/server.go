@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"github.com/stevenschmatz/myo-game/server/protocol"
 	"log"
-	"math"
 	"net"
 	"os"
 	"time"
@@ -21,7 +20,7 @@ const (
 )
 
 var (
-	DataToSend = protocol.MyoData{}
+	DataToSend = protocol.Data{}
 )
 
 func main() {
@@ -48,28 +47,33 @@ func handleConn(conn net.Conn) {
 		checkErr(err)
 
 		conn.Write(jsonBytes)
+		fmt.Println(string(jsonBytes))
 		conn.Write([]byte("\n"))
 
 		time.Sleep(20 * time.Millisecond)
 	}
 }
 
-func getSampleSinValue() float64 {
-	// Computes a periodic function of time with period of 1 second
-	return (math.Sin(((float64(time.Now().UnixNano() / int64(time.Millisecond))) / (100.0 * math.Pi))) + 1.0) / 2.0
-}
-
 func continuouslyCheckForInput() {
 	bio := bufio.NewReader(os.Stdin)
 	for {
-		data := getLineOfJSON(bio)
+		MyoData := getLineOfJSON(bio)
+		data := protocol.Data{
+			[]protocol.MyoPlayer{
+				protocol.MyoPlayer{
+					Health:  0.9,
+					Stamina: 0.6,
+					Pose:    MyoData.Pose,
+				},
+			},
+		}
 		DataToSend = data
 	}
 }
 
-func getLineOfJSON(bio *bufio.Reader) protocol.MyoData {
+func getLineOfJSON(bio *bufio.Reader) protocol.MyoPlayer {
 	line, _, _ := bio.ReadLine()
-	data := protocol.MyoData{}
+	data := protocol.MyoPlayer{}
 	json.Unmarshal(line, &data)
 	return data
 }

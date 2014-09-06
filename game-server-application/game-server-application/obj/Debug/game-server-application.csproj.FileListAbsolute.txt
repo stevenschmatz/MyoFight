@@ -7,3 +7,5 @@ C:\myo-game\game-server-application\game-server-application\obj\Debug\game_serve
 C:\myo-game\game-server-application\game-server-application\obj\Debug\game-server-application.csproj.GenerateResource.Cache
 C:\myo-game\game-server-application\game-server-application\obj\Debug\game-server-application.exe
 C:\myo-game\game-server-application\game-server-application\obj\Debug\game-server-application.pdb
+C:\myo-game\game-server-application\game-server-application\obj\Debug\Interop.KinectManagement.dll
+C:\myo-game\game-server-application\game-server-application\obj\Debug\game-server-application.csproj.ResolveComReference.cache

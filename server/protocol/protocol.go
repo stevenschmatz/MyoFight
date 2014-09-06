@@ -16,10 +16,20 @@ type (
 		Pose      string
 	}
 
+	KinectData struct {
+		PlayerOnePosition float64
+		PlayerTwoPosition float64
+	}
+
+	MyoPlayer struct {
+		Health  float64
+		Stamina float64
+		Pose    string
+	}
+
 	// struct Data is the collection of all data sent to the iOS devices.
 	Data struct {
-		MyoOne MyoData
-		MyoTwo MyoData
+		PlayerData []MyoPlayer
 	}
 
 	Test struct {

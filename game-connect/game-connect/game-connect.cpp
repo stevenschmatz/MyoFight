@@ -30,6 +30,11 @@ public:
 		roll_w = 0;
 		pitch_w = 0;
 		yaw_w = 0;
+
+		x_w = 0;
+		y_w = 0;
+		z_w = 0;
+
 		onArm = false;
 	}
 
@@ -49,9 +54,16 @@ public:
 			1.0f - 2.0f * (quat.y() * quat.y() + quat.z() * quat.z()));
 
 		// Convert the floating point angles in radians to a scale from 0 to 20.
-		roll_w = (roll + (float) M_PI) / (M_PI * 2.0f) * 18;
-		pitch_w = (pitch + (float) M_PI / 2.0f) / M_PI * 18;
-		yaw_w = (yaw + (float) M_PI) / (M_PI * 2.0f) * 18;
+		roll_w = (float) ((roll + (float) M_PI) / (M_PI * 2.0f) * 18);
+		pitch_w = (float) ((pitch + (float) M_PI / 2.0f) / M_PI * 18);
+		yaw_w = (float) ((yaw + (float) M_PI) / (M_PI * 2.0f) * 18);
+	}
+
+	void onAccelerometerData(Myo *myo, uint64_t timestamp, const Vector3< float > &accel)
+	{
+		x_w = accel.x();
+		y_w = accel.y();
+		z_w = accel.z();
 	}
 
 	// onPose() is called whenever the Myo detects that the person wearing it has changed their pose, for example,
@@ -61,7 +73,7 @@ public:
 		currentPose = pose;
 
 		// Vibrate the Myo whenever we've detected that the user has made a fist.
-		if (pose == myo::Pose::fist) {
+		if (pose == myo::Pose::fist || pose == myo::Pose::fingersSpread) {
 			myo->vibrate(myo::Myo::vibrationMedium);
 		}
 	}
@@ -82,45 +94,15 @@ public:
 		onArm = false;
 	}
 
-	// There are other virtual functions in DeviceListener that we could override here, like onAccelerometerData().
-	// For this example, the functions overridden above are sufficient.
-
-	// We define this function to print the current values that were updated by the on...() functions above.
-	void print()
-	{
-		// Clear the current line
-		std::cout << '\r';
-
-		// Print out the orientation. Orientation data is always available, even if no arm is currently recognized.
-		std::cout << '[' << std::string(roll_w, '*') << std::string(18 - roll_w, ' ') << ']'
-			<< '[' << std::string(pitch_w, '*') << std::string(18 - pitch_w, ' ') << ']'
-			<< '[' << std::string(yaw_w, '*') << std::string(18 - yaw_w, ' ') << ']';
-
-		if (onArm) {
-			// Print out the currently recognized pose and which arm Myo is being worn on.
-
-			// Pose::toString() provides the human-readable name of a pose. We can also output a Pose directly to an
-			// output stream (e.g. std::cout << currentPose;). In this case we want to get the pose name's length so
-			// that we can fill the rest of the field with spaces below, so we obtain it as a string using toString().
-			std::string poseString = currentPose.toString();
-
-			std::cout << '[' << (whichArm == myo::armLeft ? "L" : "R") << ']'
-				<< '[' << poseString << std::string(14 - poseString.size(), ' ') << ']';
-		}
-		else {
-			// Print out a placeholder for the arm and pose when Myo doesn't currently know which arm it's on.
-			std::cout << "[?]" << '[' << std::string(14, ' ') << ']';
-		}
-
-		std::cout << std::flush;
-	}
-
 	void jsonOutput() {
 		cout << "\r";
 		cout << "{" << "\"Positions\": {";
 		cout << "\"Roll\": " << roll_w << ", ";
 		cout << "\"Pitch\": " << pitch_w << ", ";
 		cout << "\"Yaw\": " << yaw_w << "}, ";
+		cout << "\"X\": " << x_w << "}, ";
+		cout << "\"Y\": " << y_w << "}, ";
+		cout << "\"Z\": " << z_w << "}, ";
 		cout << "\"Pose\": \"" << currentPose.toString() << "\"}";
 
 		cout << flush;
@@ -132,6 +114,7 @@ public:
 
 	// These values are set by onOrientationData() and onPose() above.
 	float roll_w, pitch_w, yaw_w;
+	float x_w, y_w, z_w;
 	myo::Pose currentPose;
 };
 
