@@ -13,7 +13,9 @@ class GameViewController: UIViewController, SocketDelegate {
     
     // MARK: Socket
     
-    let socket = Socket(host: "192.168.0.198", port: 3458)
+    // Steven: 35.2.107.128
+    
+    let socket = Socket(host: "35.2.76.217", port: 3458)
     
     // MARK: Initialization
     
