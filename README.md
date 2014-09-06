@@ -1,8 +1,7 @@
-MyoFight
+MyoFight ![MyoFight logo](assets/LogoSmall.png)
 =======
 A virtual reality Street Fighter game.
 
-![MyoFight logo](assets/Logo.png)
 
 Goals
 -------
