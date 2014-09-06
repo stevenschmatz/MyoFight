@@ -1,0 +1,20 @@
+﻿Build started 9/6/2014 12:38:50 PM.
+     1>Project "C:\myo-game\game-connect\game-connect\game-connect.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\myo-game\game-connect\game-connect\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "game-connect.cpp"
+         game-connect.cpp
+     1>c:\myo-game\game-connect\game-connect\game-connect.cpp(52): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\myo-game\game-connect\game-connect\game-connect.cpp(53): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\myo-game\game-connect\game-connect\game-connect.cpp(54): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\myo-game\game-connect\game-connect\game-connect.cpp(95): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\myo-game\game-connect\game-connect\game-connect.cpp(96): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\myo-game\game-connect\game-connect\game-connect.cpp(97): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\myo-game\game-connect\Debug\game-connect.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\myo-game\game-connect\game-connect\lib" myo64.lib myo32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\myo-game\game-connect\Debug\game-connect.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\myo-game\game-connect\Debug\game-connect.lib" /MACHINE:X86 "Debug\game-connect.obj"
+         Debug\stdafx.obj
+         game-connect.vcxproj -> C:\myo-game\game-connect\Debug\game-connect.exe
+     1>Done Building Project "C:\myo-game\game-connect\game-connect\game-connect.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:05.15

@@ -1,0 +1,2 @@
+{{[0.01 0.98 0.52] [0.03 0.35 0.89] [0.38 0.86 0.01] Fist} {[0.01 0.98 0.52] [0.03 0.35 0.89] [0.38 0.86 0.01] Open hand}}
+{"MyoOne":{"Accelerometer":[0.01,0.98,0.52],"Gyroscope":[0.03,0.35,0.89],"Magnemometer":[0.38,0.86,0.01],"Gesture":"Fist"},"MyoTwo":{"Accelerometer":[0.01,0.98,0.52],"Gyroscope":[0.03,0.35,0.89],"Magnemometer":[0.38,0.86,0.01],"Gesture":"Open hand"}}

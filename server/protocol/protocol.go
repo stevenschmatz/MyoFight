@@ -18,6 +18,10 @@ type (
 		MyoOne MyoData
 		MyoTwo MyoData
 	}
+
+	Test struct {
+		Random float64
+	}
 )
 
 var (

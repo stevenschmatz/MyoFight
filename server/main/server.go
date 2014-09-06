@@ -9,9 +9,10 @@ import (
 	"fmt"
 	"github.com/stevenschmatz/myo-game/server/protocol"
 	"log"
+	"math"
 	"net"
 	"os"
-	// "time"
+	"time"
 )
 
 const (
@@ -19,6 +20,12 @@ const (
 )
 
 func main() {
+
+	jsonBytes, err := json.Marshal(protocol.TestJSON)
+	checkErr(err)
+
+	fmt.Println(string(jsonBytes))
+
 	listener, err := net.Listen("tcp", PORT)
 	checkErr(err)
 	fmt.Println("Server started.\n---------------")
@@ -35,14 +42,22 @@ func main() {
 
 func handleConn(conn net.Conn) {
 	for {
-		jsonBytes, err := json.Marshal(protocol.TestJSON)
+		a := protocol.Test{
+			Random: getSampleSinValue(),
+		}
+		jsonBytes, err := json.Marshal(a)
 		checkErr(err)
 
 		conn.Write(jsonBytes)
 		conn.Write([]byte("\n"))
 
-		// time.Sleep(1000 * time.Millisecond)
+		time.Sleep(10 * time.Millisecond)
 	}
+}
+
+func getSampleSinValue() float64 {
+	// Computes a periodic function of time with period of 1 second
+	return (math.Sin(((float64(time.Now().UnixNano() / int64(time.Millisecond))) / (100.0 * math.Pi))) + 1.0) / 2.0
 }
 
 func checkErr(err error) {
