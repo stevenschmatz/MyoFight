@@ -1,0 +1,6 @@
+C:\myo-game\game-relay\game-relay\bin\Debug\game-relay.exe.config
+C:\myo-game\game-relay\game-relay\bin\Debug\game-relay.exe
+C:\myo-game\game-relay\game-relay\bin\Debug\game-relay.pdb
+C:\myo-game\game-relay\game-relay\obj\Debug\game-relay.csprojResolveAssemblyReference.cache
+C:\myo-game\game-relay\game-relay\obj\Debug\game-relay.exe
+C:\myo-game\game-relay\game-relay\obj\Debug\game-relay.pdb

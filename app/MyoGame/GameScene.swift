@@ -8,21 +8,74 @@
 
 import SpriteKit
 
+let frameRate = 1.0 / 6.0
+
+let numPlayers = 1
+
 class GameScene: SKScene {
     
-    // MARK: Texture
+    // MARK: Metrics
     
-    let texture = Texture()
+    let xPad: CGFloat = 50.0
     
-    // MARK: Sprites
+    var xFactor: CGFloat {
+        return size.width / 2.0 - xPad
+    }
     
-    var ken: SKNode!
+    // MARK: Stage
     
-    func updateSquarePosition(position: CGFloat) {
+    let stage: SKSpriteNode = {
         
-        let x = (position * 2.0 - 1.0) * 100.0
+        let stage = SKSpriteNode(imageNamed: "Stage")
         
-        ken.runAction(SKAction.moveToX(x, duration: 0.1))
+        return stage
+    }()
+    
+    // MARK: Player sprites
+    
+    let playerSprites: [SKSpriteNode] = {
+        
+        var playerSprites = [SKSpriteNode]()
+        
+        let restTextures = KenTexture.texturesForAction(.Rest)
+        let restAction = SKAction.repeatActionForever(SKAction.animateWithTextures(restTextures, timePerFrame: frameRate))
+        
+        for var i = 0; i < numPlayers; i++ {
+            
+            let sprite = SKSpriteNode(texture: restTextures.first!)
+            
+            sprite.position.x = -1.0
+            sprite.position.y = -50.0
+            sprite.xScale = 2.0
+            sprite.yScale = 2.0
+            
+            if (i == 1) {
+                sprite.position.x *= -1.0
+                sprite.xScale *= -1.0
+            }
+            
+            sprite.runAction(restAction)
+            
+            playerSprites.append(sprite)
+        }
+        
+        return playerSprites
+    }()
+    
+    func updatePlayers(players: [Player]) {
+        
+        for var i = 0; i < numPlayers; i++ {
+            
+            let player = players[i]
+            let sprite = playerSprites[i]
+            
+            if let position = player.position {
+                
+                let x = CGFloat(position) * xFactor
+                
+                sprite.runAction(SKAction.moveToX(x, duration: 0.1))
+            }
+        }
     }
     
     // MARK: Initialization
@@ -31,13 +84,30 @@ class GameScene: SKScene {
         
         super.init(size: size)
         
-        scaleMode = .ResizeFill
+        // Set up scene
+        
+        scaleMode = .AspectFit
         anchorPoint = CGPointMake(0.5, 0.5)
         
         backgroundColor = SKColor.whiteColor()
         
-        ken = SKSpriteNode(texture: texture.kenTexture)
-        self.addChild(ken)
+        // Add stage
+        
+        let stageScaleFactor = size.height / stage.size.height
+        
+        stage.xScale = stageScaleFactor
+        stage.yScale = stageScaleFactor
+        
+        self.addChild(stage)
+        
+        // Add players
+        
+        for sprite in self.playerSprites {
+            
+            sprite.position.x *= xFactor
+            
+            self.addChild(sprite)
+        }
     }
     
     required init(coder aDecoder: NSCoder) {
