@@ -1,6 +1,6 @@
 MyoFight ![MyoFight logo](assets/LogoSmall.png)
 =======
-A virtual reality Street Fighter game.
+A virtual reality Street Fighter game, built with [Myo](https://www.thalmic.com/en/myo/) and [Kinect](http://www.xbox.com/en-US/kinect).
 
 
 Goals
