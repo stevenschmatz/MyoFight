@@ -8,18 +8,9 @@
 
 import Foundation
 
-struct Player {
-    
-    let position: Double
-    let health: Double
-    let action: String
-}
-
 struct Packet {
     
-    let position: Double
-    
-    //let players: [Player]
+    let players: [Player]
 }
 
 protocol SocketDelegate {
@@ -76,24 +67,9 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
     
     func socket(sock: GCDAsyncSocket!, didReadData data: NSData!, withTag tag: Int) {
         
-        var possibleError: NSError?
-        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &possibleError)
-        
-        if let error = possibleError {
-            println(error)
-        } else if let dictionary = json as? [String: AnyObject] {
+        if let packet = packetForData(data) {
             
-            println("JSON: \(dictionary)")
-            
-            //let position = (dictionary["Random"] as NSNumber).doubleValue
-            
-            //let packet = Packet(position: position)
-            
-            //delegate?.socket(self, didReceivePacket: packet)
-            
-        } else {
-            
-            println("Invalid JSON")
+            delegate?.socket(self, didReceivePacket: packet)
         }
         
         socket.readDataToData(separatorData, withTimeout: -1.0, tag: 0)
@@ -104,5 +80,58 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
         println("Disconnected")
         
         connect()
+    }
+    
+    // MARK: Parse packet
+    
+    func packetForData(data: NSData) -> Packet? {
+        
+        var possibleError: NSError?
+        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &possibleError)
+        
+        if let error = possibleError {
+            
+            println(error)
+            return nil
+            
+        } else if let dictionary = json as? NSDictionary {
+            
+            println("JSON: \(dictionary)")
+            
+            if let playerArray = dictionary["PlayerData"] as? NSArray {
+                
+                var players = [Player]()
+                
+                for playerObject in playerArray {
+                    
+                    if let playerDictionary = playerObject as? NSDictionary {
+                        
+                        let position = (playerDictionary["Position"] as? NSNumber)?.doubleValue
+                        let health = (playerDictionary["Health"] as? NSNumber)?.doubleValue
+                        let stamina = (playerDictionary["Stamina"] as? NSNumber)?.doubleValue
+                        let action = Player.Action.fromRaw(playerDictionary["Action"] as? String ?? "")
+                        
+                        players += [Player(position: position, health: health, stamina: stamina, action: action)]
+                        
+                    } else {
+                        
+                        println("Invalid player data")
+                        return nil
+                    }
+                }
+                
+                return Packet(players: players)
+                
+            } else {
+                
+                println("Invalid player data")
+                return nil
+            }
+            
+        } else {
+            
+            println("Invalid JSON")
+            return nil
+        }
     }
 }

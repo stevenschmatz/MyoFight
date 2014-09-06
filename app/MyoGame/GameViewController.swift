@@ -13,9 +13,8 @@ class GameViewController: UIViewController, SocketDelegate {
     
     // MARK: Socket
     
-    // Steven: 35.2.107.128
-    
-    let socket = Socket(host: "35.2.76.217", port: 3458)
+    let socket = Socket(host: "35.2.76.217", port: 3458) // Ian
+    //let socket = Socket(host: "35.2.107.128", port: 3458) // Steven
     
     // MARK: Initialization
     
@@ -30,7 +29,7 @@ class GameViewController: UIViewController, SocketDelegate {
     
     func socket(socket: Socket, didReceivePacket packet: Packet) {
         
-        scene.updateSquarePosition(CGFloat(packet.position))
+        scene.updatePlayers(packet.players)
     }
     
     // MARK: View
@@ -42,11 +41,17 @@ class GameViewController: UIViewController, SocketDelegate {
         spriteView.presentScene(scene)
     }
     
+    // MARK: Status bar
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     // MARK: SKView
     
     var spriteView: SKView { return view as SKView }
     
     // MARK: Scene
     
-    let scene = GameScene(size: CGSizeMake(480.0, 320.0))
+    let scene = GameScene(size: CGSizeMake(568.0, 320.0))
 }

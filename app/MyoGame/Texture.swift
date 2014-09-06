@@ -8,11 +8,65 @@
 
 import SpriteKit
 
+let KenTexture = Texture(imageNamed: "Ken", numSpritesWide: 7, numSpritesHigh: 10)
+
+enum CharacterAction {
+    case Rest
+    
+    var spriteLocations: [SpriteLocation] {
+        
+        switch self {
+            
+        case Rest:
+            return [
+                SpriteLocation(x: 0, y: 8),
+                SpriteLocation(x: 1, y: 8),
+                SpriteLocation(x: 2, y: 8),
+                SpriteLocation(x: 3, y: 8)]
+        }
+    }
+}
+
+struct SpriteLocation {
+    let x: Int
+    let y: Int
+}
+
 class Texture {
     
-    let texture = SKTexture(imageNamed: "Ken")
+    // MARK: Properties
     
-    lazy var kenTexture: SKTexture = {
-        return SKTexture(rect: CGRectMake(0.0, 9.0 / 10.0, 1.0 / 7.0, 1.0 / 10.0), inTexture: self.texture)
-    }()
+    let texture: SKTexture
+    
+    let numSpritesWide: Int
+    let numSpritesHigh: Int
+    
+    var spriteWidth: CGFloat { return 1.0 / CGFloat(numSpritesWide) }
+    var spriteHeight: CGFloat { return 1.0 / CGFloat(numSpritesHigh) }
+    
+    // MARK: Initialization
+    
+    init(imageNamed imageName: String, numSpritesWide: Int, numSpritesHigh: Int) {
+        
+        texture = SKTexture(imageNamed: imageName)
+        
+        self.numSpritesWide = numSpritesWide
+        self.numSpritesHigh = numSpritesHigh
+    }
+    
+    // MARK: Get textures
+    
+    func texturesForLocations(locations: [SpriteLocation]) -> [SKTexture] {
+        
+        return locations.map { location in
+            
+            let rect = CGRectMake(CGFloat(location.x) * self.spriteWidth, CGFloat(location.y) * self.spriteHeight, self.spriteWidth, self.spriteHeight)
+            
+            return SKTexture(rect: rect, inTexture: self.texture)
+        }
+    }
+    
+    func texturesForAction(action: CharacterAction) -> [SKTexture] {
+        return texturesForLocations(action.spriteLocations)
+    }
 }
