@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		468C3FF819BABAC7007656FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C3FF719BABAC7007656FF /* AppDelegate.swift */; };
+		468C3FFA19BABAC7007656FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C3FF919BABAC7007656FF /* ViewController.swift */; };
+		468C3FFD19BABAC7007656FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 468C3FFB19BABAC7007656FF /* Main.storyboard */; };
+		468C3FFF19BABAC7007656FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 468C3FFE19BABAC7007656FF /* Images.xcassets */; };
+		468C400B19BABAC8007656FF /* MyoGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C400A19BABAC8007656FF /* MyoGameTests.swift */; };
+		468C401719BABC4E007656FF /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 468C401619BABC4E007656FF /* GCDAsyncSocket.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		468C400519BABAC8007656FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 468C3FEA19BABAC7007656FF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 468C3FF119BABAC7007656FF;
+			remoteInfo = MyoGame;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		468C3FF219BABAC7007656FF /* MyoGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyoGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		468C3FF619BABAC7007656FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		468C3FF719BABAC7007656FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		468C3FF919BABAC7007656FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		468C3FFC19BABAC7007656FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		468C3FFE19BABAC7007656FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		468C400419BABAC8007656FF /* MyoGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyoGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		468C400919BABAC8007656FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		468C400A19BABAC8007656FF /* MyoGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyoGameTests.swift; sourceTree = "<group>"; };
+		468C401419BABC4E007656FF /* MyoGame-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyoGame-Bridging-Header.h"; sourceTree = "<group>"; };
+		468C401519BABC4E007656FF /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		468C401619BABC4E007656FF /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		468C3FEF19BABAC7007656FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		468C400119BABAC8007656FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		468C3FE919BABAC7007656FF = {
+			isa = PBXGroup;
+			children = (
+				468C3FF419BABAC7007656FF /* MyoGame */,
+				468C400719BABAC8007656FF /* MyoGameTests */,
+				468C3FF319BABAC7007656FF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		468C3FF319BABAC7007656FF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				468C3FF219BABAC7007656FF /* MyoGame.app */,
+				468C400419BABAC8007656FF /* MyoGameTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		468C3FF419BABAC7007656FF /* MyoGame */ = {
+			isa = PBXGroup;
+			children = (
+				468C3FF719BABAC7007656FF /* AppDelegate.swift */,
+				468C3FF919BABAC7007656FF /* ViewController.swift */,
+				468C401819BABC5C007656FF /* Sockets */,
+				468C3FFB19BABAC7007656FF /* Main.storyboard */,
+				468C3FFE19BABAC7007656FF /* Images.xcassets */,
+				468C3FF519BABAC7007656FF /* Supporting Files */,
+				468C401419BABC4E007656FF /* MyoGame-Bridging-Header.h */,
+			);
+			path = MyoGame;
+			sourceTree = "<group>";
+		};
+		468C3FF519BABAC7007656FF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				468C3FF619BABAC7007656FF /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		468C400719BABAC8007656FF /* MyoGameTests */ = {
+			isa = PBXGroup;
+			children = (
+				468C400A19BABAC8007656FF /* MyoGameTests.swift */,
+				468C400819BABAC8007656FF /* Supporting Files */,
+			);
+			path = MyoGameTests;
+			sourceTree = "<group>";
+		};
+		468C400819BABAC8007656FF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				468C400919BABAC8007656FF /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		468C401819BABC5C007656FF /* Sockets */ = {
+			isa = PBXGroup;
+			children = (
+				468C401519BABC4E007656FF /* GCDAsyncSocket.h */,
+				468C401619BABC4E007656FF /* GCDAsyncSocket.m */,
+			);
+			name = Sockets;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		468C3FF119BABAC7007656FF /* MyoGame */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 468C400E19BABAC8007656FF /* Build configuration list for PBXNativeTarget "MyoGame" */;
+			buildPhases = (
+				468C3FEE19BABAC7007656FF /* Sources */,
+				468C3FEF19BABAC7007656FF /* Frameworks */,
+				468C3FF019BABAC7007656FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyoGame;
+			productName = MyoGame;
+			productReference = 468C3FF219BABAC7007656FF /* MyoGame.app */;
+			productType = "com.apple.product-type.application";
+		};
+		468C400319BABAC8007656FF /* MyoGameTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 468C401119BABAC8007656FF /* Build configuration list for PBXNativeTarget "MyoGameTests" */;
+			buildPhases = (
+				468C400019BABAC8007656FF /* Sources */,
+				468C400119BABAC8007656FF /* Frameworks */,
+				468C400219BABAC8007656FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				468C400619BABAC8007656FF /* PBXTargetDependency */,
+			);
+			name = MyoGameTests;
+			productName = MyoGameTests;
+			productReference = 468C400419BABAC8007656FF /* MyoGameTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		468C3FEA19BABAC7007656FF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = GRL5;
+				TargetAttributes = {
+					468C3FF119BABAC7007656FF = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					468C400319BABAC8007656FF = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 468C3FF119BABAC7007656FF;
+					};
+				};
+			};
+			buildConfigurationList = 468C3FED19BABAC7007656FF /* Build configuration list for PBXProject "MyoGame" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 468C3FE919BABAC7007656FF;
+			productRefGroup = 468C3FF319BABAC7007656FF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				468C3FF119BABAC7007656FF /* MyoGame */,
+				468C400319BABAC8007656FF /* MyoGameTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		468C3FF019BABAC7007656FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				468C3FFD19BABAC7007656FF /* Main.storyboard in Resources */,
+				468C3FFF19BABAC7007656FF /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		468C400219BABAC8007656FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		468C3FEE19BABAC7007656FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				468C401719BABC4E007656FF /* GCDAsyncSocket.m in Sources */,
+				468C3FFA19BABAC7007656FF /* ViewController.swift in Sources */,
+				468C3FF819BABAC7007656FF /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		468C400019BABAC8007656FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				468C400B19BABAC8007656FF /* MyoGameTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		468C400619BABAC8007656FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 468C3FF119BABAC7007656FF /* MyoGame */;
+			targetProxy = 468C400519BABAC8007656FF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		468C3FFB19BABAC7007656FF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				468C3FFC19BABAC7007656FF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		468C400C19BABAC8007656FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		468C400D19BABAC8007656FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		468C400F19BABAC8007656FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = MyoGame/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyoGame/MyoGame-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		468C401019BABAC8007656FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = MyoGame/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyoGame/MyoGame-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		468C401219BABAC8007656FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MyoGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyoGame.app/MyoGame";
+			};
+			name = Debug;
+		};
+		468C401319BABAC8007656FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MyoGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyoGame.app/MyoGame";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		468C3FED19BABAC7007656FF /* Build configuration list for PBXProject "MyoGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				468C400C19BABAC8007656FF /* Debug */,
+				468C400D19BABAC8007656FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		468C400E19BABAC8007656FF /* Build configuration list for PBXNativeTarget "MyoGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				468C400F19BABAC8007656FF /* Debug */,
+				468C401019BABAC8007656FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		468C401119BABAC8007656FF /* Build configuration list for PBXNativeTarget "MyoGameTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				468C401219BABAC8007656FF /* Debug */,
+				468C401319BABAC8007656FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 468C3FEA19BABAC7007656FF /* Project object */;
+}
