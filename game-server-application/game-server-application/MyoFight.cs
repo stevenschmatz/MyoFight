@@ -20,11 +20,13 @@ namespace game_server_application
             InitializeComponent();
         }
 
+        Thread execThread;
+
         private void MyoFight_Load(object sender, EventArgs e)
         {
             
 
-            Thread execThread = new Thread(asyncGameProcessTask);
+            execThread = new Thread(asyncGameProcessTask);
             execThread.Start();
 
             
@@ -39,24 +41,45 @@ namespace game_server_application
 
             gameConnectProcess.Start();
 
-            Process gameInputProcess = new Process();
-            gameInputProcess.StartInfo.FileName = "input.exe";
-            gameInputProcess.StartInfo.UseShellExecute = false;
-            gameInputProcess.StartInfo.RedirectStandardInput = true;
-            gameInputProcess.StartInfo.RedirectStandardOutput = true;
+            Process gameServer = new Process();
+            gameServer.StartInfo.FileName = "server.exe";
+            gameServer.StartInfo.UseShellExecute = false;
+            gameServer.StartInfo.RedirectStandardInput = true;
+            gameServer.StartInfo.RedirectStandardOutput = true;
 
-            gameInputProcess.Start();
+            gameServer.Start();
 
             while (true)
             {
-                if (gameInputProcess.HasExited || gameConnectProcess.HasExited) break;
+                if (shouldStop) break;
 
-                gameInputProcess.StandardInput.WriteLine(gameConnectProcess.StandardOutput.ReadLine());
-                Debug.WriteLine(gameInputProcess.StandardOutput.ReadLine());
+                if (gameServer.HasExited || gameConnectProcess.HasExited) break;
+
+                gameServer.StandardInput.WriteLine(gameConnectProcess.StandardOutput.ReadLine());
+                //Debug.WriteLine(gameServer.StandardOutput.ReadLine());
+                Debug.WriteLine(gameConnectProcess.StandardOutput.ReadLine());
             }
 
-            gameConnectProcess.WaitForExit();
-            gameInputProcess.WaitForExit();
+            if (!gameConnectProcess.HasExited)
+            {
+                gameConnectProcess.Kill();
+                gameConnectProcess.WaitForExit();
+            }
+
+
+            if (!gameServer.HasExited)
+            {
+                gameServer.Kill();
+                gameServer.WaitForExit();
+            }
+        }
+
+        volatile bool shouldStop = false;
+
+        private void MyoFight_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            shouldStop = true;
+            Application.ExitThread();
         }
     }
 }

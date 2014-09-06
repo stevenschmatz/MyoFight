@@ -118,10 +118,10 @@ public:
 	void jsonOutput() {
 		cout << "\r";
 		cout << "{" << "\"Positions\": {";
-		cout << "\"Roll\": \"" << roll_w << "\", ";
-		cout << "\"Pitch\": \"" << pitch_w << "\", ";
-		cout << "\"Yaw\": \"" << yaw_w << "\"}, ";
-		cout << "\"Pose\": \"" << currentPose.toString() << "\",}";
+		cout << "\"Roll\": " << roll_w << ", ";
+		cout << "\"Pitch\": " << pitch_w << ", ";
+		cout << "\"Yaw\": " << yaw_w << "}, ";
+		cout << "\"Pose\": \"" << currentPose.toString() << "\"}";
 
 		cout << flush;
 	}
@@ -139,7 +139,7 @@ public:
 int _tmain(int argc, _TCHAR* argv[])
 {
 	Hub hub("com.mhacks.myogame");
-	cout << "Trying to find a Myo" << endl;
+	//cout << "Trying to find a Myo" << endl;
 
 	Myo* myo1 = hub.waitForMyo(10000);
 	if (!myo1) {
@@ -148,7 +148,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		return 1;
 	}
 
-	cout << "Connected to Armband" << endl;
+	//cout << "Connected to Armband" << endl;
 
 	MyoDataCollector listener = * new MyoDataCollector();
 
