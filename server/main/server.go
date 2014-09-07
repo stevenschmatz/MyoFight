@@ -8,6 +8,7 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"github.com/stevenschmatz/myo-game/server/combat"
 	"github.com/stevenschmatz/myo-game/server/protocol"
 	"log"
 	"net"
@@ -16,18 +17,22 @@ import (
 )
 
 const (
-	PORT = ":3458"
+	SERVER_PORT = ":3458"
+	RELAY_IP    = "127.0.0.1:2417"
 )
 
 var (
-	DataToSend = protocol.Data{}
+	mainInputData  = protocol.MainInputData{}
+	relayInputData = protocol.RelayInputData{}
 )
 
+// main accepts clients and starts listening threads.
 func main() {
 
 	go continuouslyCheckForInput()
+	go receiveDataFromRelay()
 
-	listener, err := net.Listen("tcp", PORT)
+	listener, err := net.Listen("tcp", SERVER_PORT)
 	checkErr(err)
 	fmt.Println("Server started.\n---------------")
 
@@ -41,41 +46,52 @@ func main() {
 
 }
 
+// handleConn sends a stream of data to the client from both
+// Myo devices, as well as from the Kinect device.
 func handleConn(conn net.Conn) {
 	for {
+		DataToSend := combat.SendActions(mainInputData, relayInputData)
 		jsonBytes, err := json.Marshal(DataToSend)
 		checkErr(err)
 
 		conn.Write(jsonBytes)
-		fmt.Println(string(jsonBytes))
 		conn.Write([]byte("\n"))
 
 		time.Sleep(20 * time.Millisecond)
 	}
 }
 
+// continuouslyCheckForInput consistently polls stdin for input
+// from the first Myo device, as well as the Kinect device.
 func continuouslyCheckForInput() {
 	bio := bufio.NewReader(os.Stdin)
 	for {
-		MyoData := getLineOfJSON(bio)
-		data := protocol.Data{
-			[]protocol.MyoPlayer{
-				protocol.MyoPlayer{
-					Health:  0.9,
-					Stamina: 0.6,
-					Pose:    MyoData.Pose,
-				},
-			},
-		}
-		DataToSend = data
+		line, _, _ := bio.ReadLine()
+		data := protocol.MainInputData{}
+		json.Unmarshal(line, &data)
+		mainInputData = data
 	}
 }
 
-func getLineOfJSON(bio *bufio.Reader) protocol.MyoPlayer {
-	line, _, _ := bio.ReadLine()
-	data := protocol.MyoPlayer{}
-	json.Unmarshal(line, &data)
-	return data
+// receiveDataFromRelay receives JSON lines from the relay server,
+// containing the data from the second Myo device.
+func receiveDataFromRelay() {
+	conn, _ := net.Dial("tcp", RELAY_IP)
+
+	for {
+		buffer := make([]byte, 1024)
+		bytesRead, error := conn.Read(buffer)
+		if error != nil {
+			log.Println("Client connection error: ", error)
+		}
+
+		MyoTwoJSON := buffer[0:bytesRead]
+
+		data := protocol.RelayInputData{}
+		json.Unmarshal(MyoTwoJSON, &data)
+
+		relayInputData = data
+	}
 }
 
 func checkErr(err error) {

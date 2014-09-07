@@ -16,10 +16,12 @@ const (
 )
 
 var (
-	DataToSend []byte
+	DataToSend = []byte{}
 )
 
 func main() {
+
+	go continuouslyCheckForInput()
 
 	listener, err := net.Listen("tcp", PORT)
 	checkErr(err)
@@ -38,8 +40,6 @@ func main() {
 func handleConn(conn net.Conn) {
 	for {
 		conn.Write(DataToSend)
-		conn.Write([]byte("\n"))
-
 		time.Sleep(20 * time.Millisecond)
 	}
 }
