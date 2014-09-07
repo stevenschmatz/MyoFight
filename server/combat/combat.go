@@ -34,14 +34,14 @@ var (
 // SendActions reports the actions that must be sent to the iOS devices.
 func SendActions(mainInputData protocol.MainInputData, relayInputData protocol.RelayInputData) protocol.Data {
 	return protocol.Data{
-		PlayerData: []protocol.MyoData{
-			protocol.MyoData{
+		PlayerData: []protocol.MyoPlayer{
+			protocol.MyoPlayer{
 				Position: mainInputData.Kinect.Player1,
 				Health:   players[0].Health,
 				Stamina:  players[0].Stamina,
 				Pose:     players[0].Action,
 			},
-			protocol.MyoData{
+			protocol.MyoPlayer{
 				Position: mainInputData.Kinect.Player2,
 				Health:   players[1].Health,
 				Stamina:  players[1].Stamina,
@@ -69,8 +69,8 @@ func InitPlayersWithLocation(locationOne, locationTwo float64) {
 }
 
 func UpdatePositions(rawKinectData protocol.KinectData) {
-	pos1 := TruncatePosition(rawKinectData.PlayerOnePosition)
-	pos2 := TruncatePosition(rawKinectData.PlayerTwoPosition)
+	pos1 := TruncatePosition(rawKinectData.Player1)
+	pos2 := TruncatePosition(rawKinectData.Player2)
 
 	players[0].Position = pos1
 	players[1].Position = pos2
