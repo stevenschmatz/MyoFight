@@ -11,7 +11,8 @@ import Foundation
 struct Player {
     
     enum Action: String {
-        case Rest = "rest"
+        case Punch = "Punch"
+        //case Blast = "Blast"
     }
     
     let position: Double?

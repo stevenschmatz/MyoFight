@@ -12,6 +12,10 @@ let KenTexture = Texture(imageNamed: "Ken", numSpritesWide: 7, numSpritesHigh: 1
 
 enum CharacterAction {
     case Rest
+    case Punch
+    case PowerUp
+    case Blast
+    case Explosion
     
     var spriteLocations: [SpriteLocation] {
         
@@ -23,6 +27,31 @@ enum CharacterAction {
                 SpriteLocation(x: 1, y: 8),
                 SpriteLocation(x: 2, y: 8),
                 SpriteLocation(x: 3, y: 8)]
+            
+        case Punch:
+            return [
+                SpriteLocation(x: 0, y: 7),
+                SpriteLocation(x: 1, y: 7),
+                SpriteLocation(x: 2, y: 7)]
+            
+        case PowerUp:
+            return [
+                SpriteLocation(x: 0, y: 9),
+                SpriteLocation(x: 1, y: 9),
+                SpriteLocation(x: 2, y: 9),
+                SpriteLocation(x: 3, y: 9)]
+            
+        case Blast:
+            return [
+                SpriteLocation(x: 0, y: 5),
+                SpriteLocation(x: 1, y: 5)]
+            
+        case Explosion:
+            return [
+                SpriteLocation(x: 0, y: 4),
+                SpriteLocation(x: 1, y: 4),
+                SpriteLocation(x: 2, y: 4),
+                SpriteLocation(x: 3, y: 4)]
         }
     }
 }
