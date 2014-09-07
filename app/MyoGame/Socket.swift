@@ -95,35 +95,43 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
             
             if let playerArray = dictionary["PlayerData"] as? NSArray {
                 
-                var players: [Game.Player] = []
-                
-                for playerObject in playerArray {
+                if playerArray.count == Game.Player.Identifier.identifiers.count {
                     
-                    if let playerDictionary = playerObject as? NSDictionary {
+                    var players: [Game.Player] = []
+                    
+                    for identifier in Game.Player.Identifier.identifiers {
                         
-                        let position = (playerDictionary["Position"] as? NSNumber)?.doubleValue
-                        let health = (playerDictionary["Health"] as? NSNumber)?.doubleValue
-                        let stamina = (playerDictionary["Stamina"] as? NSNumber)?.doubleValue
-                        let action = Game.Player.Action.fromRaw(playerDictionary["Action"] as? String ?? "")
-                        
-                        if (position != nil && health != nil && stamina != nil) {
+                        if let playerDictionary = playerArray[identifier.toRaw()] as? NSDictionary {
                             
-                            players += [Game.Player(position: position!, health: health!, stamina: stamina!, action: action)]
+                            let position = (playerDictionary["Position"] as? NSNumber)?.doubleValue
+                            let health = (playerDictionary["Health"] as? NSNumber)?.doubleValue
+                            let stamina = (playerDictionary["Stamina"] as? NSNumber)?.doubleValue
+                            let action = Game.Player.Action.fromRaw(playerDictionary["Action"] as? String ?? "")
+                            
+                            if (position != nil && health != nil && stamina != nil) {
+                                
+                                players += [Game.Player(identifier: identifier, position: position!, health: health!, stamina: stamina!, action: action)]
+                                
+                            } else {
+                                
+                                println("Invalid player data")
+                                return nil
+                            }
                             
                         } else {
                             
                             println("Invalid player data")
                             return nil
                         }
-                        
-                    } else {
-                        
-                        println("Invalid player data")
-                        return nil
                     }
+                    
+                    return Game(players: players, state: .Starting)
+                    
+                } else {
+                    
+                    println("Invalid players array")
+                    return nil
                 }
-                
-                return Game(players: players, state: .Starting)
                 
             } else {
                 

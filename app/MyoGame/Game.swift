@@ -19,8 +19,8 @@ struct Game {
         
         var players: [Player] = []
         
-        for var i = 0; i < Game.numPlayers; i++ {
-            players.append(Player())
+        for identifier in Player.Identifier.identifiers {
+            players.append(Player(identifier: identifier))
         }
         
         self.players = players
@@ -33,21 +33,36 @@ struct Game {
         self.state = state;
     }
     
-    struct Player {
+    struct Player: Hashable {
         
-        init() {
+        let identifier: Identifier
+        let position: Double
+        let health: Double
+        let stamina: Double
+        let action: Action?
+        
+        init(identifier: Identifier) {
             
-            self.position = 0.0
+            self.identifier = identifier
+            self.position = -1.0
             self.health = 1.0
             self.stamina = 0.5
         }
         
-        init(position: Double, health: Double, stamina: Double, action: Action?) {
+        init(identifier: Identifier, position: Double, health: Double, stamina: Double, action: Action?) {
             
+            self.identifier = identifier
             self.position = position
             self.health = health
             self.stamina = stamina
             self.action = action
+        }
+        
+        enum Identifier: Int {
+            case Player1 = 1
+            case Player2 = 2
+            
+            static let identifiers = [Player1, Player2]
         }
         
         enum Action: String {
@@ -55,10 +70,7 @@ struct Game {
             //case Blast = "Blast"
         }
         
-        let position: Double
-        let health: Double
-        let stamina: Double
-        let action: Action?
+        var hashValue: Int { return identifier.toRaw() }
     }
     
     enum State: String {
@@ -67,4 +79,8 @@ struct Game {
         case Playing = "Playing"
         case Finished = "Finished"
     }
+}
+
+func ==(lhs: Game.Player, rhs: Game.Player) -> Bool {
+    return lhs.identifier == rhs.identifier
 }

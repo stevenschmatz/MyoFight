@@ -26,7 +26,29 @@ class GameScene: SKScene {
         
         didSet {
             
+            for player in game.players {
+                
+                let sprite = playerSprites[player.identifier]!
+                
+                if let playerAction = player.action {
+                    
+                    sprite.removeAllActions()
+                    
+                    let action: SKAction = {
+                        
+                        switch playerAction {
+                        case .Punch:
+                            return self.punchAction()
+                        }
+                    }()
+                    
+                    let actionSequence = SKAction.sequence([action, restAction()])
+                    
+                    sprite.runAction(actionSequence)
+                }
+            }
             
+            updatePlayerSpriteLocationsAnimated(true)
         }
     }
     
@@ -41,56 +63,20 @@ class GameScene: SKScene {
     
     // MARK: Player sprites
     
-    let playerSprites: [SKSpriteNode] = {
-        
-        var playerSprites = [SKSpriteNode]()
-        
-        for var i = 0; i < Game.numPlayers; i++ {
-            
-            let sprite = SKSpriteNode(texture: KenTexture.texturesForAction(.Rest).first!)
-            
-            sprite.position.x = -1.0
-            sprite.position.y = -50.0
-            sprite.xScale = 2.0
-            sprite.yScale = 2.0
-            
-            if (i == 1) {
-                sprite.position.x *= -1.0
-                sprite.xScale *= -1.0
-            }
-            
-            playerSprites.append(sprite)
-        }
-        
-        return playerSprites
-    }()
+    let playerSprites: [Game.Player.Identifier: SKSpriteNode]
     
-    func updatePlayers(players: [Game.Player]) {
+    func updatePlayerSpriteLocationsAnimated(animated: Bool) {
         
-        for var i = 0; i < Game.numPlayers; i++ {
+        for player in game.players {
             
-            let player = players[i]
-            let sprite = playerSprites[i]
+            let sprite = playerSprites[player.identifier]!
             
-            let x = CGFloat(player.position) * xFactor
+            let x = CGFloat(player.position) * xFactor * player.geometricFactor
             
-            sprite.runAction(SKAction.moveToX(x, duration: 0.1))
-            
-            if let playerAction = player.action {
-                
-                sprite.removeAllActions()
-                
-                let action: SKAction = {
-                    
-                    switch playerAction {
-                    case .Punch:
-                        return self.punchAction()
-                    }
-                }()
-                
-                let actionSequence = SKAction.sequence([action, restAction()])
-                
-                sprite.runAction(actionSequence)
+            if animated {
+                sprite.runAction(SKAction.moveToX(x, duration: 0.1))
+            } else {
+                sprite.position.x = x
             }
         }
     }
@@ -134,7 +120,28 @@ class GameScene: SKScene {
     
     // MARK: Initialization
     
-    override init(size: CGSize) {
+    init(size: CGSize, game: Game) {
+        
+        // Set up sprites
+        
+        self.game = game
+        
+        var playerSprites: [Game.Player.Identifier: SKSpriteNode] = [:]
+        
+        for player in game.players {
+            
+            let sprite = SKSpriteNode(texture: KenTexture.texturesForAction(.Rest).first!)
+            
+            sprite.position.y = -50.0
+            sprite.xScale = 2.0 * player.geometricFactor
+            sprite.yScale = 2.0
+            
+            playerSprites[player.identifier] = sprite
+        }
+        
+        self.playerSprites = playerSprites
+        
+        // Initialize super
         
         super.init(size: size)
         
@@ -156,9 +163,9 @@ class GameScene: SKScene {
         
         // Add players
         
-        for sprite in self.playerSprites {
-            
-            sprite.position.x *= xFactor
+        updatePlayerSpriteLocationsAnimated(false)
+        
+        for (_, sprite) in self.playerSprites {
             
             sprite.runAction(restAction())
             
@@ -167,6 +174,22 @@ class GameScene: SKScene {
     }
     
     required init(coder aDecoder: NSCoder) {
+        
+        self.game = Game()
+        self.playerSprites = [:]
+        
         super.init(coder: aDecoder)
     }
+    
+    // MARK: Size change
+    
+    override func didChangeSize(oldSize: CGSize) {
+        
+        updatePlayerSpriteLocationsAnimated(false)
+    }
+}
+
+extension Game.Player {
+    
+    var geometricFactor: CGFloat { return self.identifier == .Player2 ? -1.0 : 1.0 }
 }
