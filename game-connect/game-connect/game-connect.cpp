@@ -96,13 +96,13 @@ public:
 
 	void jsonOutput() {
 		cout << "\r";
-		cout << "{" << "\"Positions\": {";
+		cout << "{";
 		cout << "\"Roll\": " << roll_w << ", ";
 		cout << "\"Pitch\": " << pitch_w << ", ";
-		cout << "\"Yaw\": " << yaw_w << "}, ";
-		cout << "\"X\": " << x_w << "}, ";
-		cout << "\"Y\": " << y_w << "}, ";
-		cout << "\"Z\": " << z_w << "}, ";
+		cout << "\"Yaw\": " << yaw_w << ", ";
+		cout << "\"X\": " << x_w << ", ";
+		cout << "\"Y\": " << y_w << ", ";
+		cout << "\"Z\": " << z_w << ", ";
 		cout << "\"Pose\": \"" << currentPose.toString() << "\"}";
 
 		cout << flush;

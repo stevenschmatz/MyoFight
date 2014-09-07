@@ -37,7 +37,7 @@ namespace game_server_application
 
             if (this.kinect == null) Application.Exit();
 
-            Debug.WriteLine(this.kinect.Status.ToString());
+            //Debug.WriteLine(this.kinect.Status.ToString());
 
             this.kinect.SkeletonStream.Enable();
             this.kinect.SkeletonFrameReady += this.SensorSkeletonFrameReady;
@@ -82,7 +82,8 @@ namespace game_server_application
                 kinectData = "";
 
                 gameServer.StandardInput.WriteLine(myo1);
-                Debug.WriteLine(myo1);
+                //Debug.WriteLine(myo1);
+                Debug.WriteLine(gameServer.StandardOutput.ReadLine());
             }
 
             if (!gameConnectProcess.HasExited)
@@ -116,6 +117,8 @@ namespace game_server_application
 
             int tempI = 0;
             double[] tempX = new double[2];
+            tempX[0] = x1;
+            tempX[1] = x2;
 
             for (int i = 0; i < skeletons.Length; i++)
             {
@@ -142,7 +145,7 @@ namespace game_server_application
             label1.Text = x1.ToString();
             label2.Text = x2.ToString();
 
-            kinectData = ", {\"Kinect\":{\"Player1\":" + x1.ToString() + ", \"Player2\":" + x2.ToString() + "}}";
+            kinectData = ", \"Kinect\":{\"Player1\":" + x1.ToString() + ", \"Player2\":" + x2.ToString() + "}";
         }
 
         volatile bool shouldStop = false;
