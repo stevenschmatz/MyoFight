@@ -10,6 +10,7 @@ import Foundation
 
 protocol SocketDelegate {
     
+    func socket(socket: Socket, didChangeState state: Socket.State)
     func socket(socket: Socket, didReceiveGame game: Game)
 }
 
@@ -53,11 +54,26 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
         connect()
     }
     
+    // MARK: State
+    
+    // Does not necessarily indicate when data comes in
+    var state: State = .Connecting {
+        didSet {
+            if state != oldValue { delegate?.socket(self, didChangeState: state) }
+        }
+    }
+    
+    enum State {
+        case Connecting     // Before first connection
+        case Connected      // Normal
+        case Disconnected   // Between subsequent connections, or if initial connection times out
+    }
+    
     // MARK: Socket delegate
     
     func socket(sock: GCDAsyncSocket!, didConnectToHost host: String!, port: UInt16) {
         
-        println("Connected to \(host).")
+        self.state = .Connected
     }
     
     func socket(sock: GCDAsyncSocket!, didReadData data: NSData!, withTag tag: Int) {
@@ -72,7 +88,7 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
     
     func socketDidDisconnect(sock: GCDAsyncSocket!, withError err: NSError!) {
         
-        println("Disconnected")
+        self.state = .Disconnected
         
         connect()
     }
@@ -106,7 +122,7 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
                             let position = (playerDictionary["Position"] as? NSNumber)?.doubleValue
                             let health = (playerDictionary["Health"] as? NSNumber)?.doubleValue
                             let stamina = (playerDictionary["Stamina"] as? NSNumber)?.doubleValue
-                            let action = Game.Player.Action.fromRaw(playerDictionary["Action"] as? String ?? "")
+                            let action = Game.Player.Action.fromRaw(playerDictionary["Pose"] as? String ?? "")
                             
                             if (position != nil && health != nil && stamina != nil) {
                                 

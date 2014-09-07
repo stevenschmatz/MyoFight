@@ -48,7 +48,7 @@ class GameScene: SKScene {
                 }
             }
             
-            updatePlayerSpriteLocationsAnimated(true)
+            updatePlayerSpriteLocationsAnimated(false)
         }
     }
     
@@ -59,6 +59,17 @@ class GameScene: SKScene {
         let stage = SKSpriteNode(imageNamed: "Stage")
         
         return stage
+    }()
+    
+    // MARK: Logo
+    
+    let logo: SKSpriteNode = {
+        
+        let logo = SKSpriteNode(imageNamed: "Logo")
+        
+        logo.alpha = 0.0
+        
+        return logo
     }()
     
     // MARK: Player sprites
@@ -156,10 +167,16 @@ class GameScene: SKScene {
         
         let stageScaleFactor = size.height / stage.size.height
         
-        stage.xScale = stageScaleFactor
+        //stage.xScale = stageScaleFactor
         stage.yScale = stageScaleFactor
         
         self.addChild(stage)
+        
+        // Add logo
+        
+        logo.runAction(SKAction.fadeInWithDuration(3.0))
+        
+        self.addChild(logo)
         
         // Add players
         

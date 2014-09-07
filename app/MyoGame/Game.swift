@@ -52,21 +52,21 @@ struct Game {
         init(identifier: Identifier, position: Double, health: Double, stamina: Double, action: Action?) {
             
             self.identifier = identifier
-            self.position = position
+            self.position = position * (identifier == .Player2 ? -1.0 : 1.0)
             self.health = health
             self.stamina = stamina
             self.action = action
         }
         
         enum Identifier: Int {
-            case Player1 = 1
-            case Player2 = 2
+            case Player1 = 0
+            case Player2 = 1
             
             static let identifiers = [Player1, Player2]
         }
         
         enum Action: String {
-            case Punch = "Punch"
+            case Punch = "fist"
             //case Blast = "Blast"
         }
         
@@ -74,7 +74,6 @@ struct Game {
     }
     
     enum State: String {
-        
         case Starting = "Starting"
         case Playing = "Playing"
         case Finished = "Finished"

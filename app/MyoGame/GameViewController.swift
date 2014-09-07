@@ -13,8 +13,7 @@ class GameViewController: UIViewController, SocketDelegate {
     
     // MARK: Socket
     
-    //let socket = Socket(host: "35.2.76.217", port: 3458) Old
-    let socket = Socket(host: "192.168.0.199", port: 3458)
+    let socket = Socket(host: "35.2.76.217", port: 4458) // MHacks
     
     // MARK: Initialization
     
@@ -26,6 +25,11 @@ class GameViewController: UIViewController, SocketDelegate {
     }
     
     // MARK: Socket delegate
+    
+    func socket(socket: Socket, didChangeState state: Socket.State) {
+        
+        println("State changed")
+    }
     
     func socket(socket: Socket, didReceiveGame game: Game) {
         
