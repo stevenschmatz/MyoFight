@@ -76,12 +76,14 @@ func continuouslyCheckForInput() {
 // receiveDataFromRelay receives JSON lines from the relay server,
 // containing the data from the second Myo device.
 func receiveDataFromRelay() {
-	conn, _ := net.Dial("tcp", RELAY_IP)
+	conn, err := net.Dial("tcp", RELAY_IP)
+	checkErr(err)
 
 	for {
 		buffer := make([]byte, 1024)
-		bytesRead, error := conn.Read(buffer)
-		if error != nil {
+		fmt.Println(string(buffer))
+		bytesRead, err := conn.Read(buffer)
+		if err != nil {
 			log.Println("Client connection error: ", error)
 		}
 

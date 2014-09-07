@@ -36,13 +36,13 @@ func SendActions(mainInputData protocol.MainInputData, relayInputData protocol.R
 	return protocol.Data{
 		PlayerData: []protocol.MyoPlayer{
 			protocol.MyoPlayer{
-				Position: mainInputData.Kinect.Player1,
+				Position: mainInputData.Kinect.Player1 + 0.3,
 				Health:   players[0].Health,
 				Stamina:  players[0].Stamina,
 				Pose:     players[0].Action,
 			},
 			protocol.MyoPlayer{
-				Position: mainInputData.Kinect.Player2,
+				Position: mainInputData.Kinect.Player2 - 0.3,
 				Health:   players[1].Health,
 				Stamina:  players[1].Stamina,
 				Pose:     players[1].Action,
