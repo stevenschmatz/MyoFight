@@ -31,9 +31,10 @@ type (
 	}
 
 	MyoPlayer struct {
-		Health  float64
-		Stamina float64
-		Pose    string
+		Position float64
+		Health   float64
+		Stamina  float64
+		Pose     string
 	}
 
 	// struct Data is the collection of all data sent to the iOS devices.

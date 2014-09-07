@@ -8,6 +8,7 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"github.com/stevenschmatz/myo-game/server/combat"
 	"github.com/stevenschmatz/myo-game/server/protocol"
 	"log"
 	"net"
@@ -21,8 +22,8 @@ const (
 )
 
 var (
-	mainInputData = protocol.MainInputData{}
-	myoTwoData    = protocol.RelayInputData{}
+	mainInputData  = protocol.MainInputData{}
+	relayInputData = protocol.RelayInputData{}
 )
 
 // main accepts clients and starts listening threads.
@@ -49,6 +50,7 @@ func main() {
 // Myo devices, as well as from the Kinect device.
 func handleConn(conn net.Conn) {
 	for {
+		DataToSend := combat.SendActions(mainInputData, relayInputData)
 		jsonBytes, err := json.Marshal(DataToSend)
 		checkErr(err)
 
@@ -88,7 +90,7 @@ func receiveDataFromRelay() {
 		data := protocol.RelayInputData{}
 		json.Unmarshal(MyoTwoJSON, &data)
 
-		myoTwoData = data
+		relayInputData = data
 	}
 }
 
