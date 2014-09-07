@@ -44,6 +44,8 @@ enum CharacterAction {
         case Blast:
             return [
                 SpriteLocation(x: 0, y: 5),
+                SpriteLocation(x: 1, y: 5),
+                SpriteLocation(x: 0, y: 5),
                 SpriteLocation(x: 1, y: 5)]
             
         case Explosion:

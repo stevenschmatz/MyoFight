@@ -109,11 +109,11 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
             
             println("JSON: \(dictionary)")
             
+            var players: [Game.Player] = []
+            
             if let playerArray = dictionary["PlayerData"] as? NSArray {
                 
                 if playerArray.count == Game.Player.Identifier.identifiers.count {
-                    
-                    var players: [Game.Player] = []
                     
                     for identifier in Game.Player.Identifier.identifiers {
                         
@@ -124,24 +124,25 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
                             let stamina = (playerDictionary["Stamina"] as? NSNumber)?.doubleValue
                             let action = Game.Player.Action.fromRaw(playerDictionary["Pose"] as? String ?? "")
                             
+                            //let pitch = playerDictionary["Pitch"] as NSNumber
+                            //println("Pitch\(pitch)")
+                            
                             if (position != nil && health != nil && stamina != nil) {
                                 
                                 players += [Game.Player(identifier: identifier, position: position!, health: health!, stamina: stamina!, action: action)]
                                 
                             } else {
                                 
-                                println("Invalid player data")
+                                println("Invalid player values")
                                 return nil
                             }
                             
                         } else {
                             
-                            println("Invalid player data")
+                            println("Invalid player dictionary")
                             return nil
                         }
                     }
-                    
-                    return Game(players: players, state: .Starting)
                     
                 } else {
                     
@@ -154,6 +155,16 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
                 println("Invalid player data")
                 return nil
             }
+            
+            let gameState = Game.State.fromRaw(dictionary["State"] as? String ?? "")
+            
+            if gameState == nil {
+                
+                println("Invalid state")
+                return nil
+            }
+            
+            return Game(players: players, state: gameState!)
             
         } else {
             

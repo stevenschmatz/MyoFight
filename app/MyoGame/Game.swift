@@ -67,16 +67,16 @@ struct Game {
         
         enum Action: String {
             case Punch = "fist"
-            //case Blast = "Blast"
+            case Blast = "fingersSpread"
         }
         
         var hashValue: Int { return identifier.toRaw() }
     }
     
     enum State: String {
-        case Starting = "Starting"
-        case Playing = "Playing"
-        case Finished = "Finished"
+        case Starting = "starting"
+        case Playing = "playing"
+        case Finished = "finished"
     }
 }
 

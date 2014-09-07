@@ -19,6 +19,8 @@
 		468C401719BABC4E007656FF /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 468C401619BABC4E007656FF /* GCDAsyncSocket.m */; };
 		46C5000719BBA5EC00F48C95 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C5000619BBA5EC00F48C95 /* Game.swift */; };
 		46C5000919BBDF5900F48C95 /* Punch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 46C5000819BBDF5900F48C95 /* Punch.wav */; };
+		46C5000D19BC89E100F48C95 /* Charge Up.wav in Resources */ = {isa = PBXBuildFile; fileRef = 46C5000B19BC89E100F48C95 /* Charge Up.wav */; };
+		46C5000E19BC89E100F48C95 /* Blast.wav in Resources */ = {isa = PBXBuildFile; fileRef = 46C5000C19BC89E100F48C95 /* Blast.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		468C401619BABC4E007656FF /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		46C5000619BBA5EC00F48C95 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		46C5000819BBDF5900F48C95 /* Punch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Punch.wav; sourceTree = "<group>"; };
+		46C5000B19BC89E100F48C95 /* Charge Up.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Charge Up.wav"; sourceTree = "<group>"; };
+		46C5000C19BC89E100F48C95 /* Blast.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Blast.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +114,7 @@
 				468C401819BABC5C007656FF /* Sockets */,
 				468C3FFB19BABAC7007656FF /* Main.storyboard */,
 				468C3FFE19BABAC7007656FF /* Images.xcassets */,
-				46C5000819BBDF5900F48C95 /* Punch.wav */,
+				46C5000A19BC89D300F48C95 /* Sounds */,
 				468C3FF519BABAC7007656FF /* Supporting Files */,
 				468C401419BABC4E007656FF /* MyoGame-Bridging-Header.h */,
 			);
@@ -149,6 +153,16 @@
 				468C401619BABC4E007656FF /* GCDAsyncSocket.m */,
 			);
 			name = Sockets;
+			sourceTree = "<group>";
+		};
+		46C5000A19BC89D300F48C95 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				46C5000819BBDF5900F48C95 /* Punch.wav */,
+				46C5000B19BC89E100F48C95 /* Charge Up.wav */,
+				46C5000C19BC89E100F48C95 /* Blast.wav */,
+			);
+			name = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,8 +247,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				468C3FFD19BABAC7007656FF /* Main.storyboard in Resources */,
+				46C5000E19BC89E100F48C95 /* Blast.wav in Resources */,
 				468C3FFF19BABAC7007656FF /* Images.xcassets in Resources */,
 				46C5000919BBDF5900F48C95 /* Punch.wav in Resources */,
+				46C5000D19BC89E100F48C95 /* Charge Up.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
