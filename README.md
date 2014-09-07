@@ -1,4 +1,4 @@
-MyoFight ![MyoFight logo](assets/LogoSmall.png)
+MyoFight ![MyoFight logo](assets/IconSmall.png)
 =======
 A virtual reality Street Fighter game, built with [Myo](https://www.thalmic.com/en/myo/) and [Kinect](http://www.xbox.com/en-US/kinect).
 
