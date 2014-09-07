@@ -10,7 +10,7 @@ import SpriteKit
 
 let frameRate = 1.0 / 6.0
 
-let numPlayers = 1
+let numPlayers = 2
 
 class GameScene: SKScene {
     
@@ -37,12 +37,9 @@ class GameScene: SKScene {
         
         var playerSprites = [SKSpriteNode]()
         
-        let restTextures = KenTexture.texturesForAction(.Rest)
-        let restAction = SKAction.repeatActionForever(SKAction.animateWithTextures(restTextures, timePerFrame: frameRate))
-        
         for var i = 0; i < numPlayers; i++ {
             
-            let sprite = SKSpriteNode(texture: restTextures.first!)
+            let sprite = SKSpriteNode(texture: KenTexture.texturesForAction(.Rest).first!)
             
             sprite.position.x = -1.0
             sprite.position.y = -50.0
@@ -53,8 +50,6 @@ class GameScene: SKScene {
                 sprite.position.x *= -1.0
                 sprite.xScale *= -1.0
             }
-            
-            sprite.runAction(restAction)
             
             playerSprites.append(sprite)
         }
@@ -75,8 +70,62 @@ class GameScene: SKScene {
                 
                 sprite.runAction(SKAction.moveToX(x, duration: 0.1))
             }
+            
+            if let playerAction = player.action {
+                
+                sprite.removeAllActions()
+                
+                let action: SKAction = {
+                    
+                    switch playerAction {
+                    case .Punch:
+                        return self.punchAction()
+                    }
+                }()
+                
+                let actionSequence = SKAction.sequence([action, restAction()])
+                
+                sprite.runAction(actionSequence)
+            }
         }
     }
+    
+    // MARK: Actions
+    
+    func restAction() -> SKAction {
+        
+        let textures = KenTexture.texturesForAction(.Rest)
+        let action = SKAction.repeatActionForever(SKAction.animateWithTextures(textures, timePerFrame: frameRate))
+        
+        return action
+    }
+    
+    func punchAction() -> SKAction {
+        
+        let textures = KenTexture.texturesForAction(.Punch)
+        let animationAction = SKAction.animateWithTextures(textures, timePerFrame: frameRate)
+        
+        let soundAction = SKAction.playSoundFileNamed("Punch.wav", waitForCompletion: false)
+        
+        return SKAction.group([animationAction, soundAction])
+    }
+    
+    // MARK: Ball sprites
+    
+    /*
+    var ballSprites = [SKSpriteNode]()
+    
+    func startBlastFromPlayer(sprite: SKSpriteNode) {
+        
+        let blastTextures = KenTexture.texturesForAction(.Blast)
+        
+        let ballSprite = SKSpriteNode(texture: blastTextures.first!)
+        
+        var position = sprite.position
+        
+        position.x += (sprite == playerSprites.first! ? 1.0 : -1.0) * 30.0
+    }
+    */
     
     // MARK: Initialization
     
@@ -105,6 +154,8 @@ class GameScene: SKScene {
         for sprite in self.playerSprites {
             
             sprite.position.x *= xFactor
+            
+            sprite.runAction(restAction())
             
             self.addChild(sprite)
         }
