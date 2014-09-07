@@ -8,14 +8,9 @@
 
 import Foundation
 
-struct Packet {
-    
-    let players: [Player]
-}
-
 protocol SocketDelegate {
     
-    func socket(socket: Socket, didReceivePacket packet: Packet)
+    func socket(socket: Socket, didReceiveGame game: Game)
 }
 
 class Socket: NSObject, GCDAsyncSocketDelegate {
@@ -67,9 +62,9 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
     
     func socket(sock: GCDAsyncSocket!, didReadData data: NSData!, withTag tag: Int) {
         
-        if let packet = packetForData(data) {
+        if let game = gameForData(data) {
             
-            delegate?.socket(self, didReceivePacket: packet)
+            delegate?.socket(self, didReceiveGame: game)
         }
         
         socket.readDataToData(separatorData, withTimeout: -1.0, tag: 0)
@@ -84,7 +79,7 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
     
     // MARK: Parse packet
     
-    func packetForData(data: NSData) -> Packet? {
+    func gameForData(data: NSData) -> Game? {
         
         var possibleError: NSError?
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &possibleError)
@@ -100,7 +95,7 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
             
             if let playerArray = dictionary["PlayerData"] as? NSArray {
                 
-                var players = [Player]()
+                var players: [Game.Player] = []
                 
                 for playerObject in playerArray {
                     
@@ -109,9 +104,17 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
                         let position = (playerDictionary["Position"] as? NSNumber)?.doubleValue
                         let health = (playerDictionary["Health"] as? NSNumber)?.doubleValue
                         let stamina = (playerDictionary["Stamina"] as? NSNumber)?.doubleValue
-                        let action = Player.Action.fromRaw(playerDictionary["Action"] as? String ?? "")
+                        let action = Game.Player.Action.fromRaw(playerDictionary["Action"] as? String ?? "")
                         
-                        players += [Player(position: position, health: health, stamina: stamina, action: action)]
+                        if (position != nil && health != nil && stamina != nil) {
+                            
+                            players += [Game.Player(position: position!, health: health!, stamina: stamina!, action: action)]
+                            
+                        } else {
+                            
+                            println("Invalid player data")
+                            return nil
+                        }
                         
                     } else {
                         
@@ -120,7 +123,7 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
                     }
                 }
                 
-                return Packet(players: players)
+                return Game(players: players, state: .Starting)
                 
             } else {
                 

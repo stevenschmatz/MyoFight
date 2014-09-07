@@ -10,8 +10,6 @@ import SpriteKit
 
 let frameRate = 1.0 / 6.0
 
-let numPlayers = 2
-
 class GameScene: SKScene {
     
     // MARK: Metrics
@@ -20,6 +18,16 @@ class GameScene: SKScene {
     
     var xFactor: CGFloat {
         return size.width / 2.0 - xPad
+    }
+    
+    // MARK: Game
+    
+    var game: Game = Game() {
+        
+        didSet {
+            
+            
+        }
     }
     
     // MARK: Stage
@@ -37,7 +45,7 @@ class GameScene: SKScene {
         
         var playerSprites = [SKSpriteNode]()
         
-        for var i = 0; i < numPlayers; i++ {
+        for var i = 0; i < Game.numPlayers; i++ {
             
             let sprite = SKSpriteNode(texture: KenTexture.texturesForAction(.Rest).first!)
             
@@ -57,19 +65,16 @@ class GameScene: SKScene {
         return playerSprites
     }()
     
-    func updatePlayers(players: [Player]) {
+    func updatePlayers(players: [Game.Player]) {
         
-        for var i = 0; i < numPlayers; i++ {
+        for var i = 0; i < Game.numPlayers; i++ {
             
             let player = players[i]
             let sprite = playerSprites[i]
             
-            if let position = player.position {
-                
-                let x = CGFloat(position) * xFactor
-                
-                sprite.runAction(SKAction.moveToX(x, duration: 0.1))
-            }
+            let x = CGFloat(player.position) * xFactor
+            
+            sprite.runAction(SKAction.moveToX(x, duration: 0.1))
             
             if let playerAction = player.action {
                 
