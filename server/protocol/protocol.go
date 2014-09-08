@@ -39,6 +39,7 @@ type (
 
 	// struct Data is the collection of all data sent to the iOS devices.
 	Data struct {
+		State string
 		PlayerData []MyoPlayer
 	}
 

@@ -10,20 +10,20 @@ import (
 	"fmt"
 	"github.com/stevenschmatz/myo-game/server/combat"
 	"github.com/stevenschmatz/myo-game/server/protocol"
-	"log"
 	"net"
 	"os"
 	"time"
 )
 
 const (
-	SERVER_PORT = ":3458"
-	RELAY_IP    = "127.0.0.1:2417"
+	SERVER_PORT = ":4458"
+	RELAY_IP    = "35.2.108.81:2417"
 )
 
 var (
 	mainInputData  = protocol.MainInputData{}
 	relayInputData = protocol.RelayInputData{}
+	output []byte
 )
 
 // main accepts clients and starts listening threads.
@@ -49,6 +49,7 @@ func main() {
 // handleConn sends a stream of data to the client from both
 // Myo devices, as well as from the Kinect device.
 func handleConn(conn net.Conn) {
+	combat.InitPlayersWithLocation(mainInputData.Kinect.Player1, mainInputData.Kinect.Player2)
 	for {
 		DataToSend := combat.SendActions(mainInputData, relayInputData)
 		jsonBytes, err := json.Marshal(DataToSend)
@@ -57,7 +58,7 @@ func handleConn(conn net.Conn) {
 		conn.Write(jsonBytes)
 		conn.Write([]byte("\n"))
 
-		time.Sleep(20 * time.Millisecond)
+		time.Sleep(50 * time.Millisecond)
 	}
 }
 
@@ -65,11 +66,17 @@ func handleConn(conn net.Conn) {
 // from the first Myo device, as well as the Kinect device.
 func continuouslyCheckForInput() {
 	bio := bufio.NewReader(os.Stdin)
+	
+	counter := 0
 	for {
 		line, _, _ := bio.ReadLine()
+
+		output = line
+
 		data := protocol.MainInputData{}
 		json.Unmarshal(line, &data)
 		mainInputData = data
+		counter += 1
 	}
 }
 
@@ -78,15 +85,15 @@ func continuouslyCheckForInput() {
 func receiveDataFromRelay() {
 	conn, err := net.Dial("tcp", RELAY_IP)
 	checkErr(err)
-
+	
 	for {
 		buffer := make([]byte, 1024)
-		fmt.Println(string(buffer))
-		bytesRead, err := conn.Read(buffer)
+		bytesRead, _ := conn.Read(buffer)
+		/*
 		if err != nil {
-			log.Println("Client connection error: ", error)
+			log.Println("Client connection err: ", err)
 		}
-
+		*/
 		MyoTwoJSON := buffer[0:bytesRead]
 
 		data := protocol.RelayInputData{}
@@ -98,7 +105,7 @@ func receiveDataFromRelay() {
 
 func checkErr(err error) {
 	if err != nil {
-		log.Println(err)
+		output = []byte(err.Error())
 		os.Exit(1)
 	}
 }

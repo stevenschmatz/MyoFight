@@ -28,41 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblP1X = new System.Windows.Forms.Label();
+            this.lblP2X = new System.Windows.Forms.Label();
+            this.btnReset = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // lblP1X
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 46);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.lblP1X.AutoSize = true;
+            this.lblP1X.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblP1X.Location = new System.Drawing.Point(13, 13);
+            this.lblP1X.Name = "lblP1X";
+            this.lblP1X.Size = new System.Drawing.Size(281, 46);
+            this.lblP1X.TabIndex = 0;
+            this.lblP1X.Text = "Player 1 X: 0.0";
             // 
-            // label2
+            // lblP2X
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 59);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(126, 46);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "label2";
+            this.lblP2X.AutoSize = true;
+            this.lblP2X.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblP2X.Location = new System.Drawing.Point(12, 59);
+            this.lblP2X.Name = "lblP2X";
+            this.lblP2X.Size = new System.Drawing.Size(281, 46);
+            this.lblP2X.TabIndex = 1;
+            this.lblP2X.Text = "Player 2 X: 0.0";
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(548, 12);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(132, 93);
+            this.btnReset.TabIndex = 2;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // MyoFight
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(692, 389);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnReset);
+            this.Controls.Add(this.lblP2X);
+            this.Controls.Add(this.lblP1X);
             this.Name = "MyoFight";
             this.Text = "MyoFight";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MyoFight_FormClosing);
-            this.Load += new System.EventHandler(this.MyoFight_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -70,8 +81,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblP1X;
+        private System.Windows.Forms.Label lblP2X;
+        private System.Windows.Forms.Button btnReset;
 
     }
 }
