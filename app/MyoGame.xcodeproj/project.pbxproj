@@ -17,7 +17,7 @@
 		468C3FFF19BABAC7007656FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 468C3FFE19BABAC7007656FF /* Images.xcassets */; };
 		468C400B19BABAC8007656FF /* MyoGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468C400A19BABAC8007656FF /* MyoGameTests.swift */; };
 		468C401719BABC4E007656FF /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 468C401619BABC4E007656FF /* GCDAsyncSocket.m */; };
-		46C5000719BBA5EC00F48C95 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C5000619BBA5EC00F48C95 /* Player.swift */; };
+		46C5000719BBA5EC00F48C95 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C5000619BBA5EC00F48C95 /* Game.swift */; };
 		46C5000919BBDF5900F48C95 /* Punch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 46C5000819BBDF5900F48C95 /* Punch.wav */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +48,7 @@
 		468C401419BABC4E007656FF /* MyoGame-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyoGame-Bridging-Header.h"; sourceTree = "<group>"; };
 		468C401519BABC4E007656FF /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		468C401619BABC4E007656FF /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
-		46C5000619BBA5EC00F48C95 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		46C5000619BBA5EC00F48C95 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		46C5000819BBDF5900F48C95 /* Punch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Punch.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,7 +103,7 @@
 			children = (
 				468C3FF719BABAC7007656FF /* AppDelegate.swift */,
 				4671EDD919BB54450079595E /* Socket.swift */,
-				46C5000619BBA5EC00F48C95 /* Player.swift */,
+				46C5000619BBA5EC00F48C95 /* Game.swift */,
 				468C3FF919BABAC7007656FF /* GameViewController.swift */,
 				4671EDDE19BB5DA00079595E /* GameScene.swift */,
 				4671EDE619BB76A70079595E /* Texture.swift */,
@@ -256,7 +256,7 @@
 				4671EDE719BB76A70079595E /* Texture.swift in Sources */,
 				4671EDDA19BB54450079595E /* Socket.swift in Sources */,
 				468C401719BABC4E007656FF /* GCDAsyncSocket.m in Sources */,
-				46C5000719BBA5EC00F48C95 /* Player.swift in Sources */,
+				46C5000719BBA5EC00F48C95 /* Game.swift in Sources */,
 				468C3FFA19BABAC7007656FF /* GameViewController.swift in Sources */,
 				468C3FF819BABAC7007656FF /* AppDelegate.swift in Sources */,
 			);

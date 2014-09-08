@@ -8,14 +8,10 @@
 
 import Foundation
 
-struct Packet {
-    
-    let players: [Player]
-}
-
 protocol SocketDelegate {
     
-    func socket(socket: Socket, didReceivePacket packet: Packet)
+    func socket(socket: Socket, didChangeState state: Socket.State)
+    func socket(socket: Socket, didReceiveGame game: Game)
 }
 
 class Socket: NSObject, GCDAsyncSocketDelegate {
@@ -58,18 +54,33 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
         connect()
     }
     
+    // MARK: State
+    
+    // Does not necessarily indicate when data comes in
+    var state: State = .Connecting {
+        didSet {
+            if state != oldValue { delegate?.socket(self, didChangeState: state) }
+        }
+    }
+    
+    enum State {
+        case Connecting     // Before first connection
+        case Connected      // Normal
+        case Disconnected   // Between subsequent connections, or if initial connection times out
+    }
+    
     // MARK: Socket delegate
     
     func socket(sock: GCDAsyncSocket!, didConnectToHost host: String!, port: UInt16) {
         
-        println("Connected to \(host).")
+        self.state = .Connected
     }
     
     func socket(sock: GCDAsyncSocket!, didReadData data: NSData!, withTag tag: Int) {
         
-        if let packet = packetForData(data) {
+        if let game = gameForData(data) {
             
-            delegate?.socket(self, didReceivePacket: packet)
+            delegate?.socket(self, didReceiveGame: game)
         }
         
         socket.readDataToData(separatorData, withTimeout: -1.0, tag: 0)
@@ -77,14 +88,14 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
     
     func socketDidDisconnect(sock: GCDAsyncSocket!, withError err: NSError!) {
         
-        println("Disconnected")
+        self.state = .Disconnected
         
         connect()
     }
     
     // MARK: Parse packet
     
-    func packetForData(data: NSData) -> Packet? {
+    func gameForData(data: NSData) -> Game? {
         
         var possibleError: NSError?
         let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &possibleError)
@@ -100,27 +111,43 @@ class Socket: NSObject, GCDAsyncSocketDelegate {
             
             if let playerArray = dictionary["PlayerData"] as? NSArray {
                 
-                var players = [Player]()
-                
-                for playerObject in playerArray {
+                if playerArray.count == Game.Player.Identifier.identifiers.count {
                     
-                    if let playerDictionary = playerObject as? NSDictionary {
+                    var players: [Game.Player] = []
+                    
+                    for identifier in Game.Player.Identifier.identifiers {
                         
-                        let position = (playerDictionary["Position"] as? NSNumber)?.doubleValue
-                        let health = (playerDictionary["Health"] as? NSNumber)?.doubleValue
-                        let stamina = (playerDictionary["Stamina"] as? NSNumber)?.doubleValue
-                        let action = Player.Action.fromRaw(playerDictionary["Action"] as? String ?? "")
-                        
-                        players += [Player(position: position, health: health, stamina: stamina, action: action)]
-                        
-                    } else {
-                        
-                        println("Invalid player data")
-                        return nil
+                        if let playerDictionary = playerArray[identifier.toRaw()] as? NSDictionary {
+                            
+                            let position = (playerDictionary["Position"] as? NSNumber)?.doubleValue
+                            let health = (playerDictionary["Health"] as? NSNumber)?.doubleValue
+                            let stamina = (playerDictionary["Stamina"] as? NSNumber)?.doubleValue
+                            let action = Game.Player.Action.fromRaw(playerDictionary["Pose"] as? String ?? "")
+                            
+                            if (position != nil && health != nil && stamina != nil) {
+                                
+                                players += [Game.Player(identifier: identifier, position: position!, health: health!, stamina: stamina!, action: action)]
+                                
+                            } else {
+                                
+                                println("Invalid player data")
+                                return nil
+                            }
+                            
+                        } else {
+                            
+                            println("Invalid player data")
+                            return nil
+                        }
                     }
+                    
+                    return Game(players: players, state: .Starting)
+                    
+                } else {
+                    
+                    println("Invalid players array")
+                    return nil
                 }
-                
-                return Packet(players: players)
                 
             } else {
                 

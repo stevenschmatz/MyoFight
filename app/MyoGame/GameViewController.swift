@@ -13,8 +13,7 @@ class GameViewController: UIViewController, SocketDelegate {
     
     // MARK: Socket
     
-    let socket = Socket(host: "35.2.76.217", port: 3458) // Ian
-    //let socket = Socket(host: "35.2.107.128", port: 3458) // Steven
+    let socket = Socket(host: "35.2.76.217", port: 4458) // MHacks
     
     // MARK: Initialization
     
@@ -27,9 +26,14 @@ class GameViewController: UIViewController, SocketDelegate {
     
     // MARK: Socket delegate
     
-    func socket(socket: Socket, didReceivePacket packet: Packet) {
+    func socket(socket: Socket, didChangeState state: Socket.State) {
         
-        scene.updatePlayers(packet.players)
+        println("State changed")
+    }
+    
+    func socket(socket: Socket, didReceiveGame game: Game) {
+        
+        scene.game = game
     }
     
     // MARK: View
@@ -53,5 +57,5 @@ class GameViewController: UIViewController, SocketDelegate {
     
     // MARK: Scene
     
-    let scene = GameScene(size: CGSizeMake(568.0, 320.0))
+    let scene = GameScene(size: CGSizeMake(568.0, 320.0), game: Game())
 }
