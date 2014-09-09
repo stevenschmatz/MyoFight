@@ -1,8 +1,13 @@
-MyoFight ![MyoFight logo](assets/IconSmall.png)
+![MyoFight logo](assets/IconSmall.png) MyoFight
 =======
 ![MyoFight screenshot](http://i.imgur.com/SV5IpBn.png)
 A virtual reality Street Fighter game, built with [Myo](https://www.thalmic.com/en/myo/) and [Kinect](http://www.xbox.com/en-US/kinect).
 
+
+Video
+------
+[![MyoFight Video](http://img.youtube.com/vi/kx9bOSCyAUo/0.jpg)]
+(http://www.youtube.com/watch?v=kx9bOSCyAUo)
 
 Goals
 -------
